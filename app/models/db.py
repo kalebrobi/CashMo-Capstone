@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import CheckConstraint
 
 import os
 environment = os.getenv("FLASK_ENV")
