@@ -18,6 +18,7 @@ class PaymentMethod(db.Model):
   def to_dict(self):
     return{
       "id": self.id,
+      "user_id": self.user_id,
       "cc_number": self.cc_number,
       "sec_code": self.sec_code,
       "card_nickname": self.card_nickname

@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector  } from 'react-redux';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
@@ -25,6 +25,11 @@ const NavBar = () => {
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to='/paymentmethod' exact={true} activeClassName='active'>
+            Payment Method
           </NavLink>
         </li>
         <li>

@@ -8,6 +8,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import LoadAllCards from './components/Payment_method/payment_method';
+import AddNewCardForm from './components/Payment_method/addACard';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -26,7 +28,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar loaded={loaded} />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
@@ -39,6 +41,12 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/paymentmethod' exact={true} >
+          <LoadAllCards />
+        </ProtectedRoute>
+        <ProtectedRoute path='/paymentmethod/add' exact={true} >
+          <AddNewCardForm />
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>

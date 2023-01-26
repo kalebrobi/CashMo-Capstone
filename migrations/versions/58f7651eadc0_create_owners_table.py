@@ -1,8 +1,8 @@
 """create owners table
 
-Revision ID: 2fea055c701d
+Revision ID: 58f7651eadc0
 Revises: 
-Create Date: 2023-01-25 10:04:19.103111
+Create Date: 2023-01-25 20:57:23.149800
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2fea055c701d'
+revision = '58f7651eadc0'
 down_revision = None
 branch_labels = None
 depends_on = None
