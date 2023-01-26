@@ -1,7 +1,6 @@
 const GET_ALL_PAYMENT_METHODS = 'payment-method/GET_ALL_PAYMENT_METHODS'
 const POST_PAYMENT_METHOD = 'payment-method/POST_PAYMENT_METHOD'
-// const DELETE_PAYMENT_METHOD = 'payment-method/DELETE_PAYMENT_METHOD'
-
+const DELETE_PAYMENT_METHOD = 'payment-method/DELETE_PAYMENT_METHOD'
 
 
 
@@ -16,12 +15,25 @@ const postACard = (payment_method) => ({
   payment_method
 })
 
-// const deleteCard = (payment_method) => ({
-//   type: POST_PAYMENT_METHOD,
-//   payment_method
-// })
+const deleteCard = (cardId) => ({
+  type: DELETE_PAYMENT_METHOD,
+  cardId
+})
 
 
+
+export const deleteACard = (payment_method_id) => async(dispatch) => {
+  const response = await fetch(`/api/paymentmethod/${payment_method_id}`, {
+    method: 'DELETE'
+  })
+  if (response.ok){
+
+    const deletionResponse = await response.json()
+
+    dispatch(deleteCard(payment_method_id))
+    return deletionResponse
+  }
+}
 
 
 
@@ -74,6 +86,13 @@ const paymentMethodsReducer = (state = initialState, action) => {
     case POST_PAYMENT_METHOD: {
       const newState = {...state, allPaymentMethods: {...state.allPaymentMethods}}
       newState.allPaymentMethods[action.payment_method.id] = action.payment_method;
+      return newState
+    }
+    case DELETE_PAYMENT_METHOD: {
+      const newState = {...state}
+      const newObj = {...state.allPaymentMethods}
+      delete newObj[action.payment_method_id]
+      newState.allPaymentMethods = newObj
       return newState
     }
     default:

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { getAllPmtMethods } from '../../store/payment_method';
+import { NavLink, useHistory } from 'react-router-dom';
+import { deleteACard, getAllPmtMethods } from '../../store/payment_method';
 
 
 const LoadAllCards = () => {
@@ -9,16 +9,33 @@ const LoadAllCards = () => {
 
   const paymentMethodsObj = useSelector(state => state.payment_methods.allPaymentMethods)
   const arrayOfPMTMethods = Object.values(paymentMethodsObj)
+  const [deleteMessage, setDeleteMessage] = useState('')
+  const history = useHistory()
+
 
 
   useEffect(() => {
     dispatch(getAllPmtMethods())
-    async function fetchData() {
-      const response = await fetch('/api/paymentmethod');
-      const responseData = await response.json();
-    }
+    // async function fetchData() {
+    //   const response = await fetch('/api/paymentmethod');
+    //   const responseData = await response.json();
+    // }
 
-  }, [dispatch])
+  }, [dispatch, deleteMessage])
+
+
+
+
+
+  const handleDeletion = async (payment_method_id) => {
+    const response =  await dispatch(deleteACard(payment_method_id))
+    if (response){
+      setDeleteMessage(response.message)
+    }
+  }
+
+
+
 
 
 
@@ -33,7 +50,7 @@ const LoadAllCards = () => {
           <div>{card.card_nickname}</div>
           <div> {card.cc_number}</div>
           <div> {card.sec_code}</div>
-          <button>Edit</button> <button>Delete</button>
+          <button>Edit</button> <button onClick={() => handleDeletion(card.id)}>Delete</button>
           </div>
           ))
         }

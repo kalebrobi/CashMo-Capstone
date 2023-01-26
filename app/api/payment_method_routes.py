@@ -4,6 +4,7 @@ from app.models import User, PaymentMethod, db
 from ..forms.payment_method_form import PaymentMethodForm
 
 
+
 pmt_method_routes = Blueprint('paymentmethod', __name__)
 
 
@@ -51,3 +52,19 @@ def new_card():
 
 
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+#delete comment
+@pmt_method_routes.route('/<int:payment_method_id>', methods=['DELETE'])
+@login_required
+def delete_card(payment_method_id):
+
+    print("CHECKING IF ROUTE ENTERED", payment_method_id)
+    payment_method = PaymentMethod.query.get(payment_method_id)
+
+    print("METHOD TO BE DELETED", payment_method)
+
+    db.session.delete(payment_method)
+    db.session.commit()
+
+    return {"message": 'successfully deleted'}

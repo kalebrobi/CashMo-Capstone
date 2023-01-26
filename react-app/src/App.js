@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import LoadAllCards from './components/Payment_method/payment_method';
 import AddNewCardForm from './components/Payment_method/addACard';
 
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
