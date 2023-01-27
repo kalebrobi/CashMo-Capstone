@@ -85,6 +85,7 @@ const paymentMethodsReducer = (state = initialState, action) => {
     }
     case POST_PAYMENT_METHOD: {
       const newState = {...state, allPaymentMethods: {...state.allPaymentMethods}}
+      // newState = {...state}
       newState.allPaymentMethods[action.payment_method.id] = action.payment_method;
       return newState
     }

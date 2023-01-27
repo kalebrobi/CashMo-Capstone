@@ -87,14 +87,105 @@
 
 }
 
+.testing-this{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
 
 
 
+.logged-in-left-nav-container{
+  display: flex;
+  flex-direction: column;
+  width: 35vh;
+  height: 100%;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+
+.logged-in-cashmo{
+  border: 1px solid;
+  height: 15%;
+}
+
+.user-info-and-profile-img{
+  border: 1px solid red;
+  height: 20%;
+}
+
+.pay-or-req-button{
+  border: 1px solid blue;
+  height: 10%;
+}
+
+
+.container-for-left-links{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 1px solid rgb(91, 10, 10);
+  height: 55%;
+}
+
+.left-eachlink{
+ margin-top: 5px;
+}
+
+
+.transactions-container{
+  /* display: flex; */
+  border: 5px solid green;
+  width: 100%;
+  /* max-height: fit-content; */
+  margin-top: 20px;
+  margin-right: 20px;
+  justify-content: center;
+}
+
+
+.display-transactions-container{
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid grey;
+  /* height: 100%; */
+  /* align-content: center; */
+}
 
 
 
+.person-transaction-icon{
+  display: flex;
+  border: 2px orange solid;
+  margin-top: 55px;
+  /* width: 100%; */
+  justify-content: center;
+  margin-left: 100px;
+  margin-right: 100px;
+}
 
 
+
+.list-of-all-transaction{
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  /* border: 3px red solid; */
+  /* margin-top: 20px; */
+  /* height: 100%; */
+  /* border-left: 1px solid grey; */
+  width: 100%;
+}
+
+.each-transaction-container{
+  display: flex;
+  border: 1px blue solid;
+  height: 240px;
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
 
 
 
