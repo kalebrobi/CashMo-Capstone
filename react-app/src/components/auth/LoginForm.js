@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './LoginForm.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -30,16 +31,31 @@ const LoginForm = () => {
     return <Redirect to='/' />;
   }
 
-  return (
-    <form onSubmit={onLogin}>
+
+    return (
+<div className='login-splashPage-container'>
+
+    <form className='form-login' onSubmit={onLogin}>
+    <div className='login-form-container'>
+    <div className='login-form-contents'>
+      <div className='login-top'>
       <div>
+        <h2 className='login-logo'>Cashmo</h2>
+      </div>
+      <div>
+       <p className='login-word-font'>Log in</p>
+        </div>
+      </div>
+    <div className='login-bottom'>
+      <div className='login-errors'>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
+      <div className='input'>
+        {/* <label htmlFor='email'>Email</label> */}
         <input
+        className='login-input'
           name='email'
           type='text'
           placeholder='Email'
@@ -47,19 +63,77 @@ const LoginForm = () => {
           onChange={updateEmail}
         />
       </div>
-      <div>
-        <label htmlFor='password'>Password</label>
+      <div className='input'>
+        {/* <label htmlFor='password'>Password</label> */}
         <input
+        className='login-input'
           name='password'
           type='password'
           placeholder='Password'
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
-      </div>
+       </div>
+       <div className="login-button-container">
+        <button className='login-form-button' type='submit'>Login</button>
+       </div>
+
+    </div>
+
+        </div>
+
+        </div>
     </form>
+
+
+  </div>
+
+
   );
 };
 
 export default LoginForm;
+
+
+
+
+
+//   return (
+//     <div className='splashPage-container'>
+//       <div className='log-in-form'>
+//     <form onSubmit={onLogin}>
+//       <div>
+//         {errors.map((error, ind) => (
+//           <div key={ind}>{error}</div>
+//         ))}
+//       </div>
+//       <div>
+//         <label htmlFor='email'>Email</label>
+//         <input
+//           name='email'
+//           type='text'
+//           placeholder='Email'
+//           value={email}
+//           onChange={updateEmail}
+//         />
+//       </div>
+//       <div>
+//         <label htmlFor='password'>Password</label>
+//         <input
+//           name='password'
+//           type='password'
+//           placeholder='Password'
+//           value={password}
+//           onChange={updatePassword}
+//         />
+//         <button type='submit'>Login</button>
+//       </div>
+//     </form>
+
+//       </div>
+
+//     </div>
+//   );
+// };
+
+// export default LoginForm;
