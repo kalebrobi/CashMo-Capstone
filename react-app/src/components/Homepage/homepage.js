@@ -1,14 +1,40 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getAllTransactions } from '../../store/transactions';
 import LogoutButton from '../auth/LogoutButton';
 import './homepage.css'
 import './iphoneimg.png'
 
 
+
+
 const HomePage = ({loaded}) => {
+  const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
-  const imageHome = './iphoneimg.png'
+  const transactionsObj = useSelector(state => state.transactions.allTransactions)
+  const transactionArr = Object.values(transactionsObj)
+
+
+
+
+
+
+  useEffect(() => {
+    if (sessionUser){
+      dispatch(getAllTransactions(sessionUser.id))
+
+    }
+
+
+
+  }, [dispatch])
+
+
+
+  
+
+
    let sessionLinks;
   if(sessionUser) {
     sessionLinks =  (
@@ -52,14 +78,22 @@ const HomePage = ({loaded}) => {
   <div className='transactions-container'>
     <div className='display-transactions-container'>
       <div className='person-transaction-icon'>
-        <h2>Icon Showing person</h2>
+        <h2>{sessionUser.username}</h2>
+        <h2>{sessionUser.id}</h2>
       </div>
       <div className='list-of-all-transaction'>
-        <div className='each-transaction-container'>
-          <h2>Transaction details</h2>
+        {transactionArr.map(eachTransaction =>(
+      <div className='each-transaction-container'>
+          <p>You Sent or recieved ${eachTransaction.amount} to or from {eachTransaction.reciever_id}</p>
 
         </div>
-        <div className='each-transaction-container'>
+        ))}
+
+        {/* <div className='each-transaction-container'>
+          <p>THis is sa test</p>
+
+        </div> */}
+        {/* <div className='each-transaction-container'>
         <h2>Transaction details</h2>
         </div>
         <div className='each-transaction-container'>
@@ -77,7 +111,7 @@ const HomePage = ({loaded}) => {
         <div className='each-transaction-container'>
         <h2>Transaction details</h2>
 
-        </div>
+        </div> */}
       </div>
 
     </div>
@@ -108,7 +142,7 @@ const HomePage = ({loaded}) => {
          </div>
         </div>
         <div className='splashPage-right'>
-        <img src={imageHome} />
+        {/* <img src={imageHome} /> */}
         </div>
       </div>
     )
