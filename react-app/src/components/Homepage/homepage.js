@@ -7,15 +7,13 @@ import './homepage.css'
 import './iphoneimg.png'
 
 
-
-
 const HomePage = ({loaded}) => {
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
   const transactionsObj = useSelector(state => state.transactions.allTransactions)
   const transactionArr = Object.values(transactionsObj)
-
-
+  const allUsersObj = useSelector(state => state.session)
+  const [users, setUsers] = useState([])
 
 
 
@@ -23,16 +21,31 @@ const HomePage = ({loaded}) => {
   useEffect(() => {
     if (sessionUser){
       dispatch(getAllTransactions(sessionUser.id))
-
     }
 
+    async function fetchData() {
+      const response = await fetch('/api/users/');
+      const responseData = await response.json();
+      setUsers(responseData.users);
+    }
+    fetchData();
+
+  },[], [dispatch])
+
+  if (!users.length) {
+    return null
+  }
+
+  function userNameFinder(id) {
+    const usersFound = users.filter(user => user.id === id)
+    const usernameFound = usersFound[0].first_name
+    return usernameFound
+  }
 
 
-  }, [dispatch])
 
 
-
-  
+  // console.log("TRANSACTION",transactionArr)
 
 
    let sessionLinks;
@@ -82,13 +95,22 @@ const HomePage = ({loaded}) => {
         <h2>{sessionUser.id}</h2>
       </div>
       <div className='list-of-all-transaction'>
-        {transactionArr.map(eachTransaction =>(
+        {transactionArr.map(eachTransaction => (
       <div className='each-transaction-container'>
-          <p>You Sent or recieved ${eachTransaction.amount} to or from {eachTransaction.reciever_id}</p>
+
+          <p>
+            {eachTransaction.reciever_id === sessionUser.id ? 'You received ' : eachTransaction.sender_id === sessionUser.id ? 'You sent ': ''}
+            ${eachTransaction.amount}
+            {eachTransaction.reciever_id === sessionUser.id ? ` from ${userNameFinder(eachTransaction.sender_id)}` : ` to ${userNameFinder(eachTransaction.reciever_id)}`}
+          </p>
 
         </div>
         ))}
 
+
+{/* You Sent or recieved ${eachTransaction.amount} to or from  {userNameFinder(eachTransaction.reciever_id)} */}
+
+        {/* {userNameFinder(eachTransaction.reciever_id)} */}
         {/* <div className='each-transaction-container'>
           <p>THis is sa test</p>
 
