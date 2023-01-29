@@ -103,13 +103,41 @@ const HomePage = ({loaded}) => {
       <div className='list-of-all-transaction'>
         {transactionArr.map(eachTransaction => (
       <div className='each-transaction-container'>
-
+{/*
           <p>
             {eachTransaction.reciever_id === sessionUser.id ? 'You received ' : eachTransaction.sender_id === sessionUser.id ? 'You sent ': ''}
             ${eachTransaction.amount}
             {eachTransaction.reciever_id === sessionUser.id ? ` from ${userNameFinder(eachTransaction.sender_id)}` : ` to ${userNameFinder(eachTransaction.reciever_id)}`}
-          </p>
-
+          </p> */}
+          <div>
+          <p>
+            {eachTransaction.isRequest ?
+              (eachTransaction.reciever_id === sessionUser.id ?
+               `${userNameFinder(eachTransaction.sender_id)} requested $${eachTransaction.amount} from you`
+               : eachTransaction.sender_id === sessionUser.id ?
+                `You requested $${eachTransaction.amount} from ${userNameFinder(eachTransaction.reciever_id)}`
+                  : ''
+             )
+             : eachTransaction.reciever_id === sessionUser.id ?
+               `You received $${eachTransaction.amount} from ${userNameFinder(eachTransaction.sender_id)}`
+               : eachTransaction.sender_id === sessionUser.id ?
+                `You sent $${eachTransaction.amount} to ${userNameFinder(eachTransaction.reciever_id)}`
+                 : ''
+            }
+            </p>
+          </div>
+          <div>
+            <p>
+              {eachTransaction.note}
+            </p>
+          </div>
+          <div>
+          <p>
+            { eachTransaction.isRequest ?
+              (eachTransaction.isPending ?
+                'Request is currently pending' : 'Request was fulfilled' ): ''}
+                </p>
+          </div>
         </div>
         ))}
 

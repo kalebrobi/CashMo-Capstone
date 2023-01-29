@@ -19,7 +19,7 @@ function PayOrRequest() {
   const {closeModal} = useModal();
   const userId = sessionUser.id
   const [users, setUsers] = useState([])
-  const [clickedButton, setClickedButton] = useState(null);
+  // const [clickedButton, setClickedButton] = useState(null);
 
 
   useEffect(() => {
@@ -39,25 +39,33 @@ function PayOrRequest() {
 
 
 
+  // const handleRequest = () => {
+  //   console.log("Request is being handled.");
+  // };
+
+
+
+
+
 
   const handlePayment = async (e) => {
-    console.log(e)
     e.preventDefault()
     setErrors([])
 
-      const selectedUser = users.find(user => user.username === receiver_id);
+    const selectedUser = users.find(user => user.username === receiver_id);
 
-      const payload = {
+      if(e.target.name === 'pay'){
+        console.log("THIS SHOULD BE A PAY")
+
+      let payload = {
         amount,
         sender_id: sessionUser.id,
         // 'receiver_id': Number(receiver_id),
         receiver_id: selectedUser ? selectedUser.id : '',
         note,
         isPending: true,
-        is_request: false
+        isRequest: false
       }
-
-
       const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
         async (res) => {
           const data = await res.json()
@@ -70,6 +78,41 @@ function PayOrRequest() {
       }
 
 
+
+    } else if(e.target.name === 'request'){
+      console.log("THIS SHOULD BE A REQUEST")
+      let payload = {
+        amount,
+        sender_id: sessionUser.id,
+        // 'receiver_id': Number(receiver_id),
+        receiver_id: selectedUser ? selectedUser.id : '',
+        note,
+        isPending: true,
+        isRequest: true
+      }
+
+      const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
+        async (res) => {
+          const data = await res.json()
+          if (data && data.errors) setErrors(data.errors)
+        }
+      )
+      if (newTransaction) {
+        (closeModal)
+          (history.push('/'))
+      }
+
+    }
+      // const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
+      //   async (res) => {
+      //     const data = await res.json()
+      //     if (data && data.errors) setErrors(data.errors)
+      //   }
+      // )
+      // if (newTransaction) {
+      //   (closeModal)
+      //     (history.push('/'))
+      // }
   }
 
 
@@ -114,13 +157,17 @@ function PayOrRequest() {
             name="pay"
             className="modal-pay-button"
             // onClick={setClickedButton('pay')}
-            onClick={handlePayment}>Pay
+            // value={clickedButton}
+            onClick={handlePayment}
+            >Pay
             </button>
             <button
             type="submit"
             name="request"
             className="modal-req-button"
             // onClick={setClickedButton('request')}
+            // value={clickedButton}
+            onClick={handlePayment}
             >Request
             </button>
           </div>
