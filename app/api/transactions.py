@@ -42,23 +42,22 @@ def all_transactions(id):
 @login_required
 def post_pay(id):
   form = TransactionForm()
-  print("--------FORM BEFORE VALIDATED", form)
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-    print("Hello--------", form.data)
-
     new_transaction = Transaction()
     form.populate_obj(new_transaction)
+
+
 
     db.session.add(new_transaction)
     db.session.commit()
 
-    print("NEW TRANSAC",new_transaction)
+
     return new_transaction.to_dict(), 200
 
   if form.errors:
-    print("--------ERROR IN BACK END", form.errors)
+    print('-----------FORM ERROR--------', form.errors)
     return {
       "errors": form.errors
     }, 400

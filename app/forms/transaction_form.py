@@ -8,4 +8,4 @@ class TransactionForm(FlaskForm):
   sender_id = IntegerField('sender_id', validators=[DataRequired()])
   receiver_id = IntegerField('receiver_id', validators=[DataRequired()])
   note = TextAreaField('Note', validators=[DataRequired()])
-  # is_request = BooleanField('Request')
+  isRequest = BooleanField('Request')
