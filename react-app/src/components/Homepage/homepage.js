@@ -2,7 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getAllTransactions } from '../../store/transactions';
+import OpenModalButton from '../OpenModalButton'
 import LogoutButton from '../auth/LogoutButton';
+import PayOrRequest from '../PayOrRequestModal';
 import './homepage.css'
 import './iphoneimg.png'
 
@@ -65,7 +67,11 @@ const HomePage = ({loaded}) => {
 
 
       <div className='pay-or-req-button'>
-        <h1>PAY OR REQ BUTTON</h1>
+        <OpenModalButton
+          buttonText={'Pay or Request'}
+          modalComponent={<PayOrRequest />}
+          // <h1>PAY OR REQ BUTTON</h1>
+        />
       </div>
 
       <div className='container-for-left-links'>

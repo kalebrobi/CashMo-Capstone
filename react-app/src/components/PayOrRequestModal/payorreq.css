@@ -1,0 +1,39 @@
+.pay-modal-container{
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+
+.formContainer{
+  display: flex;
+  margin: 0 auto;
+  border: 1px black solid;
+  height: 500px;
+  width: 400px;
+}
+.modal-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  background-color: yellow;
+}
+
+.modal-amount-number{
+  border: 1px solid blue;
+  height: 40px;
+}
+
+.modal-reciver_name{
+  border: 1px solid red;
+  height: 40px;
+}
+
+
+.modal-note{
+  border: 1px solid black;
+  height: 40px;
+}
+

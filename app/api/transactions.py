@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Transaction, db, User
+from ..forms.transaction_form import TransactionForm
 
 
 
@@ -35,13 +36,27 @@ def all_transactions(id):
   return {'transactions' :[transaction.to_dict() for transaction in transactions]}, 200
 
 
-  # return transactions_dict
 
+#post a payment or req
+@transaction_routes.route('/<int:id>', methods = ['POST'])
+@login_required
+def post_pay(id):
+  form = TransactionForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
+  if form.validate_on_submit():
+    print("Hello--------", form.data)
 
+    new_transaction = Transaction()
+    form.populate_obj(new_transaction)
 
-  # return transactions.to_dict()
+    db.session.add(new_transaction)
+    db.session.commit()
 
-  # return {'transactions': [transaction.to_dict() for transaction in transactions]}
+    print("NEW TRANSAC",new_transaction)
+    return new_transaction.to_dict(), 200
 
-  # return {'transactions' :[transaction.to_dict() for transaction in transactions]}, 200
+  if form.errors:
+    return {
+      "errors": form.errors
+    }, 400

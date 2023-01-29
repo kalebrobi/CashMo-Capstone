@@ -1,5 +1,5 @@
 const GET_ALL_TRANSACTIONS = 'transactions/GET_ALL_TRANSACTIONS'
-// const POST_TRANSACTIONS = 'transactions/POST_TRANSACTION'
+const POST_TRANSACTION = 'transactions/POST_TRANSACTION'
 // const EDIT_TRANSACTION =   'transactions/EDIT_TRANSACTION'
 // const DELETE_TRANSACTION = 'transactions/ DELETE_TRANSACTION'
 
@@ -9,10 +9,10 @@ const getAll = (everyTransaction) => ({
   everyTransaction
 })
 
-// const postATransaction = () => ({
-//   type: POST_TRANSACTION,
-
-// })
+const postATransaction = (createdTransaction) => ({
+  type: POST_TRANSACTION,
+  createdTransaction
+})
 
 // const editATransaction = () => ({
 //   type: EDIT_TRANSACTION,
@@ -35,6 +35,23 @@ export const getAllTransactions = (userId) => async (dispatch) => {
 }
 
 
+export const createTransaction = (payload, userId) => async (dispatch) => {
+  // console.log("In thunk---", payload)
+  const response = await fetch(`/api/transactions/${userId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+
+  if (response.ok) {
+    const createdTransaction = await response.json();
+    dispatch(postATransaction(createdTransaction));
+    console.log("IN THUNK DISPATCHED",createdTransaction)
+    return createdTransaction;
+  }
+}
+
+
 
 
 
@@ -47,6 +64,12 @@ const transactionsReducer = (state = initialState, action) => {
       action.everyTransaction.transactions.forEach(transaction => {
         newState.allTransactions[transaction.id] = transaction
       });
+      return newState
+    }
+    case POST_TRANSACTION: {
+      const newState = {...state, allTransactions: {...state.allTransactions} }
+      console.log("ACTION",action )
+      newState.allTransactions[action.createdTransaction.id] = action.createdTransaction;
       return newState
     }
     default:

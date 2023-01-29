@@ -53,7 +53,7 @@ def new_card():
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-#delete comment
+#delete paymentmethod
 @pmt_method_routes.route('/<int:payment_method_id>', methods=['DELETE'])
 @login_required
 def delete_card(payment_method_id):
