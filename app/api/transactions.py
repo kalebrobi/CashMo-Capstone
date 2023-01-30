@@ -43,10 +43,12 @@ def all_transactions(id):
 def post_pay(id):
   form = TransactionForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+  print("FORM1------", form)
 
   if form.validate_on_submit():
     new_transaction = Transaction()
     form.populate_obj(new_transaction)
+    print("FORM222------", form)
 
 
 
@@ -55,6 +57,35 @@ def post_pay(id):
 
 
     return new_transaction.to_dict(), 200
+
+  if form.errors:
+    print('-----------FORM ERROR--------', form.errors)
+    return {
+      "errors": form.errors
+    }, 400
+
+
+
+@transaction_routes.route('/<int:id>', methods = ['PUT'])
+@login_required
+def update_pay(id):
+
+  old_transactions = Transaction.query.get(id)
+  form = TransactionForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  print("FORM1------", form)
+
+  if form.validate_on_submit():
+
+    form.populate_obj(old_transactions)
+    print("FORM222------", form)
+
+
+
+    db.session.add(old_transactions)
+    db.session.commit()
+    return old_transactions.to_dict(), 201
+
 
   if form.errors:
     print('-----------FORM ERROR--------', form.errors)

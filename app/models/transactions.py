@@ -24,7 +24,7 @@ class Transaction(db.Model):
     return{
       "id": self.id,
       "sender_id": self.sender_id,
-      "reciever_id": self.receiver_id,
+      "receiver_id": self.receiver_id,
       "amount": self.amount,
       "note": self.note,
       "isRequest": self.isRequest,

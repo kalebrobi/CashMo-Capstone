@@ -1,6 +1,6 @@
 const GET_ALL_TRANSACTIONS = 'transactions/GET_ALL_TRANSACTIONS'
 const POST_TRANSACTION = 'transactions/POST_TRANSACTION'
-// const EDIT_TRANSACTION =   'transactions/EDIT_TRANSACTION'
+const UPDATE_TRANSACTION =   'transactions/UPDATE_TRANSACTION'
 // const DELETE_TRANSACTION = 'transactions/ DELETE_TRANSACTION'
 
 
@@ -13,6 +13,12 @@ const postATransaction = (createdTransaction) => ({
   type: POST_TRANSACTION,
   createdTransaction
 })
+
+
+const updateATransaction = (transaction) => ({
+  type: UPDATE_TRANSACTION,
+  transaction
+});
 
 // const editATransaction = () => ({
 //   type: EDIT_TRANSACTION,
@@ -51,6 +57,20 @@ export const createTransaction = (payload, userId) => async (dispatch) => {
   }
 }
 
+export const updateTransaction = (payload, id) => async (dispatch) => {
+  const response = await fetch(`/api/transactions/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  if (response.ok) {
+    const updatedTransaction = await response.json();
+    dispatch(updateATransaction(updatedTransaction));
+    return updatedTransaction;
+  }
+
+};
+
 
 
 
@@ -68,8 +88,12 @@ const transactionsReducer = (state = initialState, action) => {
     }
     case POST_TRANSACTION: {
       const newState = {...state, allTransactions: {...state.allTransactions} }
-      console.log("ACTION",action )
       newState.allTransactions[action.createdTransaction.id] = action.createdTransaction;
+      return newState
+    }
+    case UPDATE_TRANSACTION: {
+      const newState = {...state, allTransactions: {...state.allTransactions} }
+      newState.allTransactions[action.transaction.id] = action.transaction
       return newState
     }
     default:

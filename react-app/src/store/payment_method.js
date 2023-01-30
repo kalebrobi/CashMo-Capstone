@@ -92,6 +92,7 @@ const paymentMethodsReducer = (state = initialState, action) => {
     case DELETE_PAYMENT_METHOD: {
       const newState = {...state}
       const newObj = {...state.allPaymentMethods}
+      console.log("TESTTTT",newObj)
       delete newObj[action.payment_method_id]
       newState.allPaymentMethods = newObj
       return newState

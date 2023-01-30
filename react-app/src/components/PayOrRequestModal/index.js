@@ -63,7 +63,7 @@ function PayOrRequest() {
         // 'receiver_id': Number(receiver_id),
         receiver_id: selectedUser ? selectedUser.id : '',
         note,
-        isPending: true,
+        isPending: false,
         isRequest: false
       }
       const newTransaction = await dispatch(createTransaction(payload, userId)).catch(

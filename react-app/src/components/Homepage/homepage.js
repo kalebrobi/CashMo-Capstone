@@ -1,12 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getAllTransactions } from '../../store/transactions';
+import { getAllTransactions, updateTransaction } from '../../store/transactions';
 import OpenModalButton from '../OpenModalButton'
 import LogoutButton from '../auth/LogoutButton';
 import PayOrRequest from '../PayOrRequestModal';
 import './homepage.css'
 import './iphoneimg.png'
+import EditTransaction from '../EditTransactionModal';
 
 
 const HomePage = ({loaded}) => {
@@ -16,15 +17,11 @@ const HomePage = ({loaded}) => {
   const transactionArr = Object.values(transactionsObj)
   const allUsersObj = useSelector(state => state.session)
   const [users, setUsers] = useState([])
-
-
+  const [errors, setErrors] = useState([]);
+  // const [isPending, setIsPending] = useState(true)
 
 
   useEffect(() => {
-    if (sessionUser){
-      dispatch(getAllTransactions(sessionUser.id))
-    }
-
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
@@ -32,17 +29,44 @@ const HomePage = ({loaded}) => {
     }
     fetchData();
 
-  },[], [dispatch])
+    if (!users) {
+      return null
+    }else if (sessionUser){
+        dispatch(getAllTransactions(sessionUser.id))
+      }
 
-  if (!users.length) {
-    return null
-  }
+  },[],users, [dispatch])
+
+  // if (!users) {
+  //   return null
+  // }
 
   function userNameFinder(id) {
     const usersFound = users.filter(user => user.id === id)
     const usernameFound = usersFound[0].first_name
     return usernameFound
   }
+
+  const handleClick = async (id) => {
+    setErrors([])
+    const transactionToChange = transactionArr.find(transaction => transaction.id === id);
+    console.log("ON THE RIGHT TRACK",transactionToChange)
+      let payload = {
+        amount: transactionToChange.amount,
+        sender_id: transactionToChange.sender_id,
+        // 'receiver_id': Number(receiver_id),
+        receiver_id: transactionToChange.receiver_id,
+        note: transactionToChange.note,
+        isPending: false,
+        isRequest: transactionToChange.isRequest
+      }
+      const newTransaction = await dispatch(updateTransaction(payload, id)).catch(
+        async (res) => {
+          const data = await res.json()
+          if (data && data.errors) setErrors(data.errors)
+        }
+      )
+  };
 
 
 
@@ -101,27 +125,21 @@ const HomePage = ({loaded}) => {
         <h2>{sessionUser.id}</h2>
       </div>
       <div className='list-of-all-transaction'>
-        {transactionArr.map(eachTransaction => (
+        {transactionArr.reverse().map(eachTransaction => (
       <div className='each-transaction-container'>
-{/*
-          <p>
-            {eachTransaction.reciever_id === sessionUser.id ? 'You received ' : eachTransaction.sender_id === sessionUser.id ? 'You sent ': ''}
-            ${eachTransaction.amount}
-            {eachTransaction.reciever_id === sessionUser.id ? ` from ${userNameFinder(eachTransaction.sender_id)}` : ` to ${userNameFinder(eachTransaction.reciever_id)}`}
-          </p> */}
           <div>
           <p>
             {eachTransaction.isRequest ?
-              (eachTransaction.reciever_id === sessionUser.id ?
+              (eachTransaction.receiver_id === sessionUser.id ?
                `${userNameFinder(eachTransaction.sender_id)} requested $${eachTransaction.amount} from you`
                : eachTransaction.sender_id === sessionUser.id ?
-                `You requested $${eachTransaction.amount} from ${userNameFinder(eachTransaction.reciever_id)}`
+                `You requested $${eachTransaction.amount} from ${userNameFinder(eachTransaction.receiver_id)}`
                   : ''
              )
-             : eachTransaction.reciever_id === sessionUser.id ?
+             : eachTransaction.receiver_id === sessionUser.id ?
                `You received $${eachTransaction.amount} from ${userNameFinder(eachTransaction.sender_id)}`
                : eachTransaction.sender_id === sessionUser.id ?
-                `You sent $${eachTransaction.amount} to ${userNameFinder(eachTransaction.reciever_id)}`
+                `You sent $${eachTransaction.amount} to ${userNameFinder(eachTransaction.receiver_id)}`
                  : ''
             }
             </p>
@@ -132,42 +150,43 @@ const HomePage = ({loaded}) => {
             </p>
           </div>
           <div>
-          <p>
+          {/* <p>
             { eachTransaction.isRequest ?
               (eachTransaction.isPending ?
                 'Request is currently pending' : 'Request was fulfilled' ): ''}
+                </p> */}
+                <p>
+            {eachTransaction.isPending ? 'Transaction is currently pending' : 'Transaction has been resolved'}
                 </p>
+          </div>
+
+          <div>
+            {sessionUser.id === eachTransaction.sender_id && eachTransaction.isPending && eachTransaction.isRequest ? (
+              <>
+             <OpenModalButton
+              modalComponent={<EditTransaction currentTransactionId={ `${eachTransaction.id}`}/>}
+              buttonText={'Edit'}
+              />
+             <button>Delete</button>
+              </>
+            ) : sessionUser.id === eachTransaction.receiver_id && eachTransaction.isPending && eachTransaction.isRequest ? (
+             <>
+              <button
+              onClick={() => handleClick(eachTransaction.id)}
+              >Pay
+              </button>
+              <button
+              onClick={() => handleClick(eachTransaction.id)}
+              >Reject
+              </button>
+              </>
+              ) : sessionUser.id === eachTransaction.receiver_id && eachTransaction.isPending && !eachTransaction.isRequest ? (
+            <button>Accept Payment</button>
+           ) : null}
           </div>
         </div>
         ))}
 
-
-{/* You Sent or recieved ${eachTransaction.amount} to or from  {userNameFinder(eachTransaction.reciever_id)} */}
-
-        {/* {userNameFinder(eachTransaction.reciever_id)} */}
-        {/* <div className='each-transaction-container'>
-          <p>THis is sa test</p>
-
-        </div> */}
-        {/* <div className='each-transaction-container'>
-        <h2>Transaction details</h2>
-        </div>
-        <div className='each-transaction-container'>
-        <h2>Transaction details</h2>
-
-        </div>
-        <div className='each-transaction-container'>
-        <h2>Transaction details</h2>
-
-        </div>
-        <div className='each-transaction-container'>
-        <h2>Transaction details</h2>
-
-        </div>
-        <div className='each-transaction-container'>
-        <h2>Transaction details</h2>
-
-        </div> */}
       </div>
 
     </div>
@@ -204,46 +223,11 @@ const HomePage = ({loaded}) => {
     )
    }
 
-
-
-  //  } else {
-  //   sessionLinks = (
-  //     <div className='splashPage-container'>
-  //       <div className='splashPage-left'>
-  //         <div className='splash-page-main-words-container'>
-  //           <p className='splash-page-main-words'>
-  //             Fast, Safe, Social payments
-  //           </p>
-  //         <div className='splash-page-smaller-words-button-container'>
-  //           <div className='splash-page-small-words'>
-  //             <p>Pay, Get Paid, Share</p>
-  //           </div>
-  //           <div className='splash-page-button-on-page'>
-
-  //           </div>
-  //         </div>
-  //        </div>
-  //       </div>
-  //       <div className='splashPage-right'></div>
-  //     </div>
-  //   )
-  //  }
-
-
-
-
-
-
-
-
-
-
    return (
     <>
     {loaded && sessionLinks}
     </>
    )
-
 
 }
 

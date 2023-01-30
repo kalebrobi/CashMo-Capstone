@@ -9,3 +9,4 @@ class TransactionForm(FlaskForm):
   receiver_id = IntegerField('receiver_id', validators=[DataRequired()])
   note = TextAreaField('Note', validators=[DataRequired()])
   isRequest = BooleanField('Request')
+  isPending = BooleanField('Pending')
