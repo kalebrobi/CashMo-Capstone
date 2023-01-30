@@ -43,12 +43,11 @@ def all_transactions(id):
 def post_pay(id):
   form = TransactionForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print("FORM1------", form)
+
 
   if form.validate_on_submit():
     new_transaction = Transaction()
     form.populate_obj(new_transaction)
-    print("FORM222------", form)
 
 
 
@@ -59,7 +58,6 @@ def post_pay(id):
     return new_transaction.to_dict(), 200
 
   if form.errors:
-    print('-----------FORM ERROR--------', form.errors)
     return {
       "errors": form.errors
     }, 400
@@ -92,3 +90,18 @@ def update_pay(id):
     return {
       "errors": form.errors
     }, 400
+
+
+
+@transaction_routes.route('/<int:id>', methods = ['DELETE'])
+@login_required
+def delete_pay(id):
+
+  transaction = Transaction.query.get(id)
+
+
+  db.session.delete(transaction)
+  db.session.commit()
+
+
+  return {"message": 'successfully deleted'}

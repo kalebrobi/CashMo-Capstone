@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getAllTransactions, updateTransaction } from '../../store/transactions';
+import { deleteTransaction, getAllTransactions, updateTransaction } from '../../store/transactions';
 import OpenModalButton from '../OpenModalButton'
 import LogoutButton from '../auth/LogoutButton';
 import PayOrRequest from '../PayOrRequestModal';
@@ -10,15 +10,19 @@ import './iphoneimg.png'
 import EditTransaction from '../EditTransactionModal';
 
 
+
 const HomePage = ({loaded}) => {
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
   const transactionsObj = useSelector(state => state.transactions.allTransactions)
-  const transactionArr = Object.values(transactionsObj)
+  const transactionArr = transactionsObj ? Object.values(transactionsObj) : []
+  // const transactionArr = Object.values(transactionsObj)
   const allUsersObj = useSelector(state => state.session)
   const [users, setUsers] = useState([])
   const [errors, setErrors] = useState([]);
-  // const [isPending, setIsPending] = useState(true)
+  const [deleteMessage, setDeleteMessage] = useState('')
+
+
 
 
   useEffect(() => {
@@ -29,21 +33,23 @@ const HomePage = ({loaded}) => {
     }
     fetchData();
 
+
     if (!users) {
       return null
     }else if (sessionUser){
         dispatch(getAllTransactions(sessionUser.id))
       }
 
-  },[],users, [dispatch])
+  },[],[dispatch,users, deleteMessage])
 
-  // if (!users) {
-  //   return null
-  // }
+
+
 
   function userNameFinder(id) {
-    const usersFound = users.filter(user => user.id === id)
-    const usernameFound = usersFound[0].first_name
+    if(users[id]){
+      const usersFound = users.filter(user => user.id === id)
+      var usernameFound = usersFound[0].first_name
+    }
     return usernameFound
   }
 
@@ -68,6 +74,24 @@ const HomePage = ({loaded}) => {
       )
   };
 
+
+  // if (!users) {
+  //   return null;
+  // }
+
+
+
+
+
+
+
+  const handleDeletion = async (deleteId) => {
+    const response = await dispatch(deleteTransaction(deleteId))
+    if (response){
+      setDeleteMessage(response.message)
+      dispatch(getAllTransactions(sessionUser.id))
+    }
+  }
 
 
 
@@ -167,7 +191,10 @@ const HomePage = ({loaded}) => {
               modalComponent={<EditTransaction currentTransactionId={ `${eachTransaction.id}`}/>}
               buttonText={'Edit'}
               />
-             <button>Delete</button>
+             <button
+             onClick={() => handleDeletion(eachTransaction.id)}
+               >Delete
+             </button>
               </>
             ) : sessionUser.id === eachTransaction.receiver_id && eachTransaction.isPending && eachTransaction.isRequest ? (
              <>

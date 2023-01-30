@@ -41,6 +41,11 @@ const LoadAllCards = () => {
 
   return (
     <>
+      <div className='logged-in-cashmo'>
+      <NavLink className={'logo'} to='/' exact={true} activeClassName='active'>
+        Cashmo
+      </NavLink>
+      </div>
     <div>
       <h1>Your cards</h1>
       <div>

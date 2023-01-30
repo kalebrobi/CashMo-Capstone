@@ -1,7 +1,7 @@
 const GET_ALL_TRANSACTIONS = 'transactions/GET_ALL_TRANSACTIONS'
 const POST_TRANSACTION = 'transactions/POST_TRANSACTION'
 const UPDATE_TRANSACTION =   'transactions/UPDATE_TRANSACTION'
-// const DELETE_TRANSACTION = 'transactions/ DELETE_TRANSACTION'
+const DELETE_TRANSACTION = 'transactions/ DELETE_TRANSACTION'
 
 
 const getAll = (everyTransaction) => ({
@@ -20,15 +20,12 @@ const updateATransaction = (transaction) => ({
   transaction
 });
 
-// const editATransaction = () => ({
-//   type: EDIT_TRANSACTION,
 
-// })
+const deleteATransaction = (deleteId) => ({
+  type: DELETE_TRANSACTION,
+  deleteId
 
-// const deleteATransaction = () => ({
-//   type: DELETE_TRANSACTION,
-
-// })
+})
 
 
 export const getAllTransactions = (userId) => async (dispatch) => {
@@ -72,6 +69,33 @@ export const updateTransaction = (payload, id) => async (dispatch) => {
 };
 
 
+export const deleteTransaction = (deleteId) => async(dispatch) => {
+  const response = await fetch(`/api/transactions/${deleteId}`, {
+    method: 'DELETE'
+  })
+
+  if (response.ok){
+    const deletionTransaction = await response.json()
+
+    dispatch(deleteATransaction(deleteId))
+    return deletionTransaction
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -95,6 +119,13 @@ const transactionsReducer = (state = initialState, action) => {
       const newState = {...state, allTransactions: {...state.allTransactions} }
       newState.allTransactions[action.transaction.id] = action.transaction
       return newState
+    }
+    case DELETE_TRANSACTION: {
+      const newState = {...state}
+      const newObj = {...state.allTransactions}
+      delete newObj[action.deleteId]
+      newState.allTransactions = newObj
+      return newObj
     }
     default:
       return state
