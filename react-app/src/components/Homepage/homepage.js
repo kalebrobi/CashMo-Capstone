@@ -33,10 +33,7 @@ const HomePage = ({loaded}) => {
     }
     fetchData();
 
-
-    if (!users) {
-      return null
-    }else if (sessionUser){
+      if (sessionUser){
         dispatch(getAllTransactions(sessionUser.id))
       }
 
@@ -45,13 +42,8 @@ const HomePage = ({loaded}) => {
 
 
 
-  function userNameFinder(id) {
-    if(users[id]){
-      const usersFound = users.filter(user => user.id === id)
-      var usernameFound = usersFound[0].first_name
-    }
-    return usernameFound
-  }
+
+
 
   const handleClick = async (id) => {
     setErrors([])
@@ -75,14 +67,6 @@ const HomePage = ({loaded}) => {
   };
 
 
-  // if (!users) {
-  //   return null;
-  // }
-
-
-
-
-
 
 
   const handleDeletion = async (deleteId) => {
@@ -93,13 +77,20 @@ const HomePage = ({loaded}) => {
     }
   }
 
+  function userNameFinder(id) {
+    const usersFound = users.filter(user => user.id === id)
+    const usernameFound = usersFound[0].first_name
+    return usernameFound
+}
 
 
-  // console.log("TRANSACTION",transactionArr)
 
 
    let sessionLinks;
   if(sessionUser) {
+      if (!users.length) {
+    return null;
+  }
     sessionLinks =  (
       // <div className='logged-in-left-nav-container'>
 <div className='testing-this'>
@@ -133,7 +124,9 @@ const HomePage = ({loaded}) => {
           <p>incomplete 'transactions' link</p>
         </div>
         <div className='left-eachlink'>
-          <p>other users link</p>
+          <NavLink to='/users' exact={true} activeClassName='active'>
+              Users
+            </NavLink>
         </div>
         <div className='left-eachlink'>
           <LogoutButton />
@@ -250,7 +243,7 @@ const HomePage = ({loaded}) => {
     )
    }
 
-   return (
+   return  (
     <>
     {loaded && sessionLinks}
     </>

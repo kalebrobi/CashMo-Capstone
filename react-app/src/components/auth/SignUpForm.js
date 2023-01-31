@@ -16,8 +16,32 @@ const SignUpForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+
+
+
+  // const onSignUp = async (e) => {
+  //   e.preventDefault();
+  //   setErrors([])
+  //   const newUser = {
+  //     first_name,
+  //     last_name,
+  //     username,
+  //     email,
+  //     profile_photo,
+  //     password
+  //   }
+
+  //   if (password === repeatPassword) {
+  //     const data = await dispatch(signUp(newUser));
+  //     if (data && data.errors) {
+  //       setErrors(data)
+  //     }
+  //   }
+  // }
+
   const onSignUp = async (e) => {
     e.preventDefault();
+
     if (password === repeatPassword) {
       const data = await dispatch(signUp(first_name, last_name, username, email, profile_photo, password));
       if (data) {
@@ -57,118 +81,230 @@ const SignUpForm = () => {
     return <Redirect to='/' />;
   }
 
-
   return (
-  <div className='login-splashPage-container'>
+    <div className='login-splashPage-container'>
 
-    <form className='form-login' onSubmit={onSignUp}>
-    <div className='signup-form-container'>
-    <div className='login-form-contents'>
-    <div className='login-top'>
-      <div>
-        <h2 className='login-logo'>Cashmo</h2>
-      </div>
-      <div>
-       <p className='login-word-font'>Sign up</p>
+      <form className='form-login' onSubmit={onSignUp}>
+      <div className='signup-form-container'>
+      <div className='login-form-contents'>
+      <div className='login-top'>
+        <div>
+          <h2 className='login-logo'>Cashmo</h2>
         </div>
-      </div>
-      <div className='login-bottom'>
-      <div className='login-errors'>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div className='input'>
-        <input
-        className='login-input'
-          required
-          type='text'
-          name='first_name'
-          placeholder='First Name'
-          onChange={updateFirstName}
-          value={first_name}
-        ></input>
-      </div>
-      <div className='input'>
-        <input
-        className='login-input'
-          required
-          type='text'
-          name='last_name'
-          placeholder='Last Name'
-          onChange={updateLastName}
-          value={last_name}
-        ></input>
-      </div>
-      <div className='input'>
-        <input
-        className='login-input'
-          type='text'
-          required
-          name='username'
-          placeholder='Username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div className='input'>
-        <input
-        className='login-input'
-          type='text'
-          required
-          name='email'
-          placeholder='Email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-
-      <div className='input'>
-        <input
-        className='login-input'
-          type='text'
-          name='profile_photo'
-          placeholder='Profile Photo'
-          onChange={updateProfile_photo}
-          value={profile_photo}
-        ></input>
-      </div>
-      <div className='input'>
-        <input
-        className='login-input'
-          type='password'
-          required
-          name='password'
-          placeholder='Passord'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div className='input'>
-        <input
-        className='login-input'
-          type='password'
-          required
-          name='repeat_password'
-          placeholder='Repeat Password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-        ></input>
-      </div>
-      <div className="login-button-container">
-      <button className='login-form-button' type='submit'>Sign Up</button>
-      </div>
-
+        <div>
+         <p className='login-word-font'>Sign up</p>
+          </div>
         </div>
-      </div>
-      </div>
-    </form>
+        <div className='login-bottom'>
+        <div className='login-errors'>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
+        <div className='input'>
+          <input
+          className='login-input'
+            required
+            type='text'
+            name='first_name'
+            placeholder='First Name'
+           onChange={updateFirstName}
+            value={first_name}
+          ></input>
+        </div>
+        <div className='input'>
+          <input
+          className='login-input'
+            required
+            type='text'
+            name='last_name'
+            placeholder='Last Name'
+            onChange={updateLastName}
+            value={last_name}
+          ></input>
+        </div>
+        <div className='input'>
+          <input
+          className='login-input'
+            type='text'
+            required
+            name='username'
+            placeholder='Username'
+            onChange={updateUsername}
+            value={username}
+          ></input>
+        </div>
+        <div className='input'>
+          <input
+          className='login-input'
+            type='text'
+            required
+            name='email'
+            placeholder='Email'
+            onChange={updateEmail}
+            value={email}
+          ></input>
+        </div>
 
-</div>
-  );
-};
+        <div className='input'>
+          <input
+          className='login-input'
+            type='text'
+            name='profile_photo'
+            placeholder='Profile Photo'
+            onChange={updateProfile_photo}
+            value={profile_photo}
+          ></input>
+        </div>
+        <div className='input'>
+          <input
+          className='login-input'
+            type='password'
+            required
+            name='password'
+            placeholder='Passord'
+            onChange={updatePassword}
+            value={password}
+          ></input>
+        </div>
+        <div className='input'>
+          <input
+          className='login-input'
+            type='password'
+            required
+            name='repeat_password'
+            placeholder='Repeat Password'
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+          ></input>
+        </div>
+        <div className="login-button-container">
+        <button className='login-form-button' type='submit'>Sign Up</button>
+        </div>
 
-export default SignUpForm;
+          </div>
+        </div>
+        </div>
+      </form>
+
+  </div>
+    );
+  };
+
+  export default SignUpForm;
+
+
+//   return (
+//   <div className='login-splashPage-container'>
+
+//     <form className='form-login' onSubmit={onSignUp}>
+//     <div className='signup-form-container'>
+//     <div className='login-form-contents'>
+//     <div className='login-top'>
+//       <div>
+//         <h2 className='login-logo'>Cashmo</h2>
+//       </div>
+//       <div>
+//        <p className='login-word-font'>Sign up</p>
+//         </div>
+//       </div>
+//       <div className='login-bottom'>
+//       <div className='login-errors'>
+//         {errors.map((error, ind) => (
+//           <div key={ind}>{error}</div>
+//         ))}
+//       </div>
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           required
+//           type='text'
+//           name='first_name'
+//           placeholder='First Name'
+//           onChange={updateFirstName}
+//           value={first_name}
+//         ></input>
+//       </div>
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           required
+//           type='text'
+//           name='last_name'
+//           placeholder='Last Name'
+//           onChange={updateLastName}
+//           value={last_name}
+//         ></input>
+//       </div>
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           type='text'
+//           required
+//           name='username'
+//           placeholder='Username'
+//           onChange={updateUsername}
+//           value={username}
+//         ></input>
+//       </div>
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           type='text'
+//           required
+//           name='email'
+//           placeholder='Email'
+//           onChange={updateEmail}
+//           value={email}
+//         ></input>
+//       </div>
+
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           type='text'
+//           name='profile_photo'
+//           placeholder='Profile Photo'
+//           onChange={updateProfile_photo}
+//           value={profile_photo}
+//         ></input>
+//       </div>
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           type='password'
+//           required
+//           name='password'
+//           placeholder='Passord'
+//           onChange={updatePassword}
+//           value={password}
+//         ></input>
+//       </div>
+//       <div className='input'>
+//         <input
+//         className='login-input'
+//           type='password'
+//           required
+//           name='repeat_password'
+//           placeholder='Repeat Password'
+//           onChange={updateRepeatPassword}
+//           value={repeatPassword}
+//         ></input>
+//       </div>
+//       <div className="login-button-container">
+//       <button className='login-form-button' type='submit'>Sign Up</button>
+//       </div>
+
+//         </div>
+//       </div>
+//       </div>
+//     </form>
+
+// </div>
+//   );
+// };
+
+// export default SignUpForm;
 
 
 
