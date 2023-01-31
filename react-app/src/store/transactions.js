@@ -51,6 +51,10 @@ export const createTransaction = (payload, userId) => async (dispatch) => {
     dispatch(postATransaction(createdTransaction));
     console.log("IN THUNK DISPATCHED",createdTransaction)
     return createdTransaction;
+  } else {
+    const badData = await response.json();
+    console.log('BadDattaaa', badData.errors)
+    return badData
   }
 }
 
@@ -64,6 +68,10 @@ export const updateTransaction = (payload, id) => async (dispatch) => {
     const updatedTransaction = await response.json();
     dispatch(updateATransaction(updatedTransaction));
     return updatedTransaction;
+  }else {
+    const badData = await response.json();
+    console.log('BadDattaaa', badData.errors)
+    return badData
   }
 
 };

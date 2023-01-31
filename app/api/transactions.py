@@ -87,12 +87,13 @@ def update_pay(id):
     return old_transactions.to_dict(), 201
 
 
-  if form.errors:
-    print('-----------FORM ERROR--------', form.errors)
-    return {
-      "errors": form.errors
-    }, 400
-
+  # if form.errors:
+  #   print('-----------FORM ERROR--------', form.errors)
+  #   return {
+  #     "errors": form.errors
+  #   }, 400
+  print(form.errors)
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @transaction_routes.route('/<int:id>', methods = ['DELETE'])

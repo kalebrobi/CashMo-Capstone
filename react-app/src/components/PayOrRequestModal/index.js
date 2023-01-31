@@ -66,16 +66,18 @@ function PayOrRequest() {
         isPending: false,
         isRequest: false
       }
-      const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
-        async (res) => {
-          const data = await res.json()
-          if (data && data.errors) setErrors(data.errors)
+
+      const data = await dispatch(createTransaction(payload, userId))
+
+        if(data && data.errors){
+          setErrors([data.errors])
+        } else {
+          closeModal()
+          history.push('/')
         }
-      )
-      if (newTransaction) {
-        (closeModal)
-          (history.push('/'))
-      }
+
+
+
 
 
 
@@ -90,29 +92,19 @@ function PayOrRequest() {
         isPending: true,
         isRequest: true
       }
+      const data = await dispatch(createTransaction(payload, userId))
 
-      const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
-        async (res) => {
-          const data = await res.json()
-          if (data && data.errors) setErrors(data.errors)
-        }
-      )
-      if (newTransaction) {
-        (closeModal)
-          (history.push('/'))
+      if(data && data.errors){
+        setErrors([data.errors])
+      } else {
+        closeModal()
+        history.push('/')
       }
 
+
+
     }
-      // const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
-      //   async (res) => {
-      //     const data = await res.json()
-      //     if (data && data.errors) setErrors(data.errors)
-      //   }
-      // )
-      // if (newTransaction) {
-      //   (closeModal)
-      //     (history.push('/'))
-      // }
+
   }
 
 
@@ -121,6 +113,11 @@ function PayOrRequest() {
     <div className="pay-modal-container">
       <div className="formContainer">
         <form className="modal-form" method="post" onSubmit={handlePayment}>
+        `<ul>
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
           <div className="modal-amount-number">
             <input
               type="text"
@@ -132,15 +129,21 @@ function PayOrRequest() {
               />
           </div>
           <div className="modal-reciver_name">
-          <input
-              type="text"
+            <select
               required
               onChange={(e) => setReceiver_id(e.target.value)}
               value={receiver_id}
-              placeholder='To: username'
               name='receiver_id'
-              />
+              >
+              <option value="">Select a Receiver</option>
+              {users.map(user => (
+                <option key={user.id} value={user.username}>
+                  {user.username}
+                </option>
+              ))}
+            </select>
           </div>
+
           <div className="modal-note">
           <input
               type="text"
@@ -180,3 +183,31 @@ function PayOrRequest() {
 
 
 export default PayOrRequest
+
+
+
+
+
+// const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
+//   async (res) => {
+//     const data = await res.json()
+//     if (data && data.errors) setErrors(data.errors)
+//   }
+// )
+// if (newTransaction) {
+//   (closeModal)
+//     (history.push('/'))
+// }
+
+
+
+// const newTransaction = await dispatch(createTransaction(payload, userId)).catch(
+//   async (res) => {
+//     const data = await res.json()
+//     if (data && data.errors) setErrors(data.errors)
+//   }
+// )
+// if (newTransaction) {
+//   (closeModal)
+//     (history.push('/'))
+// }
