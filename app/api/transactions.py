@@ -9,15 +9,15 @@ transaction_routes = Blueprint('transactions', __name__)
 
 
 
-# def validation_errors_to_error_messages(validation_errors):
-#     """
-#     Simple function that turns the WTForms validation errors into a simple list
-#     """
-#     errorMessages = []
-#     for field in validation_errors:
-#         for error in validation_errors[field]:
-#             errorMessages.append(f'{error}')
-#     return errorMessages
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{error}')
+    return errorMessages
 
 
 #get all transactions
@@ -57,10 +57,12 @@ def post_pay(id):
 
     return new_transaction.to_dict(), 200
 
-  if form.errors:
-    return {
-      "errors": form.errors
-    }, 400
+  # if form.errors:
+  #   return {
+  #     "errors": form.errors
+  #   }, 400
+  print(form.errors)
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 

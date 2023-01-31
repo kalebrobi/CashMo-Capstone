@@ -55,7 +55,7 @@ const LoadAllCards = () => {
           <div>{card.card_nickname}</div>
           <div> {card.cc_number}</div>
           <div> {card.sec_code}</div>
-          <button>Edit</button> <button onClick={() => handleDeletion(card.id)}>Delete</button>
+          <button onClick={() => handleDeletion(card.id)}>Delete</button>
           </div>
           ))
         }

@@ -50,7 +50,6 @@ const AddNewCardForm = () => {
               <li key={idx}>{error}</li>
             ))}
           </ul>
-          <label>Credit Card Number</label>
           <div>
           <input
             type='text'
