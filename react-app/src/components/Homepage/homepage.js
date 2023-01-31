@@ -5,9 +5,9 @@ import { deleteTransaction, getAllTransactions, updateTransaction } from '../../
 import OpenModalButton from '../OpenModalButton'
 import LogoutButton from '../auth/LogoutButton';
 import PayOrRequest from '../PayOrRequestModal';
+import EditTransaction from '../EditTransactionModal';
 import './homepage.css'
 import './iphoneimg.png'
-import EditTransaction from '../EditTransactionModal';
 
 
 
