@@ -23,6 +23,7 @@ const HomePage = ({loaded}) => {
   const [deleteMessage, setDeleteMessage] = useState('')
 
 
+  console.log("USERS",users)
 
 
   useEffect(() => {
@@ -101,14 +102,21 @@ const HomePage = ({loaded}) => {
       </NavLink>
       </div>
       <div className='user-info-and-profile-img'>
-        <h1>USER INFO AND PIC</h1>
+        <div>
+        <img className='user-img-left-nav' src={sessionUser.profile_photo} alt='nav-profile-photo' />
+        </div>
+        <div className='user-details-left'>
+          <p>Hi, {sessionUser.first_name}</p>
+          <br></br>
+          <p className='username-left-blue'>@{sessionUser.username}</p>
+        </div>
       </div>
-
 
       <div className='pay-or-req-button'>
         <OpenModalButton
           buttonText={'Pay or Request'}
           modalComponent={<PayOrRequest />}
+          className={'left-pay-req-button'}
           // <h1>PAY OR REQ BUTTON</h1>
         />
       </div>
@@ -116,20 +124,30 @@ const HomePage = ({loaded}) => {
       <div className='container-for-left-links'>
         <div className='left-eachlink'>
           {/* <p>payment method link</p> */}
-          <NavLink to='/paymentmethod' exact={true} activeClassName='active'>
-              <h2>Payment Method</h2>
+          <NavLink className={'left-links'} to='/paymentmethod' exact={true} activeClassName='active'>
+              Payment Methods
           </NavLink>
         </div>
-        <div className='left-eachlink'>
-          <p>incomplete 'transactions' link</p>
+        <div className='link-to-social'>
+          <a className={'left-links'} href='https://github.com/kalebrobi' target="_blank">
+          My Github
+        </a>
         </div>
-        <div className='left-eachlink'>
+        <div className='link-to-social'>
+        <a className={'left-links'} href='https://www.linkedin.com/in/kaleb-robi-a5abb0124/' target="_blank">
+          My Linkdin
+        </a>
+        </div>
+        {/* <div className='left-eachlink'>
+          <p>incomplete 'transactions' link</p>
+        </div> */}
+        {/* <div className='left-eachlink'>
           <NavLink to='/users' exact={true} activeClassName='active'>
               Users
             </NavLink>
-        </div>
-        <div className='left-eachlink'>
-          <LogoutButton />
+        </div> */}
+        <div className='left-logout'>
+          <LogoutButton  />
         </div>
       </div>
 
@@ -139,12 +157,16 @@ const HomePage = ({loaded}) => {
     <div className='display-transactions-container'>
       <div className='person-transaction-icon'>
         <h2>{sessionUser.username}</h2>
-        <h2>{sessionUser.id}</h2>
+        {/* <h2>{sessionUser.id}</h2> */}
       </div>
       <div className='list-of-all-transaction'>
         {transactionArr.reverse().map(eachTransaction => (
       <div className='each-transaction-container'>
-          <div>
+          <div className='user-img-transaction-container'>
+            <img className='user-img-transaction-list' src={sessionUser.profile_photo} alt='nav-profile-photo' />
+          </div>
+      <div className='transaction-details-each'>
+        <div>
           <p>
             {eachTransaction.isRequest ?
               (eachTransaction.receiver_id === sessionUser.id ?
@@ -176,16 +198,17 @@ const HomePage = ({loaded}) => {
             {eachTransaction.isPending ? 'Transaction is currently pending' : 'Transaction has been resolved'}
                 </p>
           </div>
-
-          <div>
+          <div className='each-transaction-buttons'>
             {sessionUser.id === eachTransaction.sender_id && eachTransaction.isPending && eachTransaction.isRequest ? (
               <>
              <OpenModalButton
               modalComponent={<EditTransaction currentTransactionId={ `${eachTransaction.id}`}/>}
               buttonText={'Edit'}
+              className={'edit-delete-transaction-button'}
               />
              <button
              onClick={() => handleDeletion(eachTransaction.id)}
+             className='edit-delete-transaction-button'
                >Delete
              </button>
               </>
@@ -193,18 +216,19 @@ const HomePage = ({loaded}) => {
              <>
               <button
               onClick={() => handleClick(eachTransaction.id)}
+              className='edit-delete-transaction-button'
               >Pay
               </button>
               <button
               onClick={() => handleClick(eachTransaction.id)}
+              className='edit-delete-transaction-button'
               >Reject
               </button>
               </>
-              ) : sessionUser.id === eachTransaction.receiver_id && eachTransaction.isPending && !eachTransaction.isRequest ? (
-            <button>Accept Payment</button>
-           ) : null}
+              ) : null}
           </div>
         </div>
+     </div>
         ))}
 
       </div>

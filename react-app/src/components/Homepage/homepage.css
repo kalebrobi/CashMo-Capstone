@@ -106,32 +106,124 @@
 
 
 .logged-in-cashmo{
-  border: 1px solid;
+  /* border: 1px solid; */
   height: 15%;
 }
 
 .user-info-and-profile-img{
-  border: 1px solid red;
+  /* border: 1px solid red; */
   height: 20%;
 }
 
+
+
+
+.left-eachlink{
+ margin-top: 5px;
+}
+
+
+
+
+
+.user-info-and-profile-img{
+  display: flex;
+  align-items: center;
+
+}
+
+.user-img-left-nav{
+  height: 100px;
+  width: 100px;
+  border-radius: 70%;
+}
+
+.user-details-left{
+  margin-left: 10px;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  letter-spacing: -.01rem;
+}
+
+.username-left-blue{
+  color:  #008cff;;
+}
+
 .pay-or-req-button{
-  border: 1px solid blue;
-  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border: 1px solid blue; */
+  height: 8%;
+}
+
+.left-pay-req-button{
+  display: flex;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+  border: 1px rgb(8, 8, 8, 0.2) solid;
+  box-shadow: 0px 1px 3px rgb(14, 13, 13);
+  background-color: #008cff;
+  color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: oblique;
+  margin-top: 40px;
+}
+
+.left-pay-req-button:hover{
+  color: white;
+  box-shadow: 0px 2px 5px rgba(14, 13, 13, 0.4);
+  transform: translateY(-2px);
+  letter-spacing: -.01rem;
 }
 
 
 .container-for-left-links{
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  border: 1px solid rgb(91, 10, 10);
+  justify-content: space-evenly;
+  /* border: 1px solid rgb(91, 10, 10); */
   height: 55%;
+  margin-top: 30px;
+  margin-left: 10px;
 }
 
-.left-eachlink{
- margin-top: 5px;
+.left-links{
+  text-decoration: none;
+  color: #2f3033;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: oblique;
 }
+
+.left-links:hover{
+  color: #008cff;
+  transition: 50ms;
+}
+
+.left-logout{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #2f3033;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: oblique;
+  font-size: 16px;
+}
+
+.left-logout:hover{
+  color: #008cff;
+  transition: 50ms;
+}
+
+
 
 
 .transactions-container{
@@ -141,6 +233,8 @@
   /* max-height: fit-content; */
   margin-top: 20px;
   margin-right: 20px;
+  margin-left: 25px;
+  margin-top: 0px;
   justify-content: center;
 }
 
@@ -148,6 +242,8 @@
 .display-transactions-container{
   display: flex;
   flex-direction: column;
+  margin-left: 25px;
+  margin-top: 0px;
   border-left: 1px solid grey;
   /* height: 100%; */
   /* align-content: center; */
@@ -157,7 +253,7 @@
 
 .person-transaction-icon{
   display: flex;
-  border: 2px orange solid;
+  /* border: 2px orange solid; */
   margin-top: 55px;
   /* width: 100%; */
   justify-content: center;
@@ -180,19 +276,63 @@
 
 .each-transaction-container{
   display: flex;
-  flex-direction: column;
-  border: 1px blue solid;
+  flex-direction: row;
+  /* border: 1px blue solid; */
+  border-bottom: 1px solid grey;
+  align-items: center;
   height: 240px;
   margin-top: 20px;
   margin-left: 100px;
   margin-right: 100px;
 }
 
+.transaction-details-each{
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  margin-top: 60px;
+  height: 60%;
+  justify-content: space-evenly;
+
+}
 
 
+.user-img-transaction-list{
+  height: 50px;
+  width: 50px;
+  border-radius: 70%;
+}
 
 
+.each-transaction-buttons{
+  display: flex;
+  justify-content: space-around;
 
+}
+
+.edit-delete-transaction-button{
+  margin-top: 15px;
+  background-color: transparent;
+  border: 1px solid #008cff;
+  padding: 7px;
+  width: 100px;
+  border: 1px #008cff solid;
+  box-shadow: 0px 1px 3px rgb(14, 13, 13);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+}
+
+
+.edit-delete-transaction-button:hover{
+  color: white;
+  background-color: #008cff;
+  box-shadow: 0px 2px 5px rgba(14, 13, 13, 0.4);
+  transform: translateY(-2px);
+  letter-spacing: -.01rem;
+}
 
 
 
