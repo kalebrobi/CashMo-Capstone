@@ -117,7 +117,7 @@ const AddNewCardForm = () => {
               <li key={idx}>{error}</li>
             ))}
           </ul>
-        <div>
+        <div className='full-cc-number-container'>
           <input
           className='full-cc-number-input'
             type='text'

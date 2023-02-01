@@ -255,7 +255,7 @@ const HomePage = ({loaded}) => {
             </div>
             <div className='splash-page-button-on-page'>
             <NavLink className={'splash-nav-sign-up-link'} to='/sign-up' exact={true} activeClassName='active'>
-            Get Cashmo
+            Join Now!
             </NavLink>
           </div>
          </div>

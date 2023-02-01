@@ -120,6 +120,7 @@ function PayOrRequest() {
           </ul>
           <div className="modal-amount-number">
             <input
+            className="amount-input-pay"
               type="text"
               required
               onChange={(e) => setAmount(e.target.value)}
@@ -130,6 +131,7 @@ function PayOrRequest() {
           </div>
           <div className="modal-reciver_name">
             <select
+            className="users-drop-down"
               required
               onChange={(e) => setReceiver_id(e.target.value)}
               value={receiver_id}
@@ -146,6 +148,7 @@ function PayOrRequest() {
 
           <div className="modal-note">
           <input
+          className="note-for-pay"
               type="text"
               required
               onChange={(e) => setNote(e.target.value)}
