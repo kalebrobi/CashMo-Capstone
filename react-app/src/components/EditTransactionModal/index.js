@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { updateAUser } from "../../store/session";
 import { updateTransaction } from "../../store/transactions";
+import './edittransactions.css'
 
 
 
@@ -56,7 +57,7 @@ function EditTransaction(currentTransactionId) {
 
 
      const data = await dispatch(updateTransaction(payload, currentTransaction))
-     
+
           if(data && data.errors){
             setErrors([data.errors])
           } else {
@@ -69,16 +70,20 @@ function EditTransaction(currentTransactionId) {
 
 
   return (
-    <div className="pay-modal-container">
+  <div className="pay-modal-container">
+    <div className="title-add-transaction">Pay & Request users</div>
       <div className="formContainer">
         <form className="modal-form" method="post" onSubmit={handlePayment} >
-        <ul>
-            {errors.map((error, idx) => (
-              <li key={idx}>{error}</li>
-            ))}
-          </ul>
+      <div className="pay-req-error">
+        {errors.map((error, idx) => (
+         <div
+          className="each-pay-req-error" key={idx}>{error}
+        </div>
+          ))}
+       </div>
           <div className="modal-amount-number">
             <input
+              className="amount-input-pay"
               type="text"
               required
               onChange={(e) => setAmount(e.target.value)}
@@ -87,8 +92,9 @@ function EditTransaction(currentTransactionId) {
               name="amount"
               />
           </div>
-          <div className="modal-reciver_name">
+          <div className="modal-reciver-name">
             <select
+             className="users-drop-down"
               required
               onChange={(e) => setReceiver_id(e.target.value)}
               value={receiver_id}
@@ -102,8 +108,10 @@ function EditTransaction(currentTransactionId) {
               ))}
             </select>
           </div>
+
           <div className="modal-note">
-          <input
+          <textarea
+           className="note-for-pay"
               type="text"
               required
               onChange={(e) => setNote(e.target.value)}
@@ -117,9 +125,6 @@ function EditTransaction(currentTransactionId) {
             type="submit"
             name="pay"
             className="modal-pay-button"
-            // onClick={setClickedButton('pay')}
-            // value={clickedButton}
-            // onClick={handlePayment}
             >submit changes
             </button>
           </div>
@@ -132,3 +137,88 @@ function EditTransaction(currentTransactionId) {
 
 
 export default EditTransaction
+
+
+
+
+
+
+
+
+
+{/* <>
+
+<div className="pay-modal-container">
+<div className="title-add-transaction">Pay & Request users</div>
+  <div className="formContainer">
+    <form className="modal-form" method="post" onSubmit={handlePayment}>
+    <div className="pay-req-error">
+        {errors.map((error, idx) => (
+          <div
+          className="each-pay-req-error" key={idx}>{error}
+          </div>
+        ))}
+    </div>
+      <div className="modal-amount-number">
+        <input
+        className="amount-input-pay"
+          type="text"
+          required
+          onChange={(e) => setAmount(e.target.value)}
+          value={amount}
+          placeholder='$0'
+          name="amount"
+          />
+      </div>
+      <div className="modal-reciver-name">
+        <select
+        className="users-drop-down"
+          required
+          onChange={(e) => setReceiver_id(e.target.value)}
+          value={receiver_id}
+          name='receiver_id'
+          >
+          <option value="">Select a Receiver</option>
+          {users.map(user => (
+            <option key={user.id} value={user.username}>
+              {user.username}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="modal-note">
+      <textarea
+      className="note-for-pay"
+          type="text"
+          required
+          onChange={(e) => setNote(e.target.value)}
+          value={note}
+          placeholder='Note'
+          name="note"
+          />
+      </div>
+      <div className="modal-buttons">
+        <button
+        type="submit"
+        name="pay"
+        className="modal-pay-button"
+        // onClick={setClickedButton('pay')}
+        // value={clickedButton}
+        onClick={handlePayment}
+        >Pay
+        </button>
+        <button
+        type="submit"
+        name="request"
+        className="modal-req-button"
+        // onClick={setClickedButton('request')}
+        // value={clickedButton}
+        onClick={handlePayment}
+        >Request
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</> */}

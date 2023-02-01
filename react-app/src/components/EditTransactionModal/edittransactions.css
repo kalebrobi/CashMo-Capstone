@@ -160,17 +160,5 @@ color: white;
 
 
 .pay-req-error{
-  display: flex;
-  flex-direction: column;
   margin-bottom: 10px;
-
-}
-
-.each-pay-req-error{
-  display: flex;
-  flex-direction: column;
-}
-
-.testing-errors{
-  display: flex;
 }

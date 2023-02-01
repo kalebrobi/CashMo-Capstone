@@ -77,10 +77,6 @@ function PayOrRequest() {
         }
 
 
-
-
-
-
     } else if(e.target.name === 'request'){
       console.log("THIS SHOULD BE A REQUEST")
       let payload = {
@@ -109,15 +105,18 @@ function PayOrRequest() {
 
 
   return (
-
+    <>
     <div className="pay-modal-container">
+    <div className="title-add-transaction">Pay & Request users</div>
       <div className="formContainer">
         <form className="modal-form" method="post" onSubmit={handlePayment}>
-        `<ul>
+        <div className="pay-req-error">
             {errors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <div
+              className="each-pay-req-error" key={idx}><div className="testing-errors">{error}</div>
+              </div>
             ))}
-          </ul>
+        </div>
           <div className="modal-amount-number">
             <input
             className="amount-input-pay"
@@ -125,11 +124,11 @@ function PayOrRequest() {
               required
               onChange={(e) => setAmount(e.target.value)}
               value={amount}
-              placeholder='Enter Amount'
+              placeholder='$0'
               name="amount"
               />
           </div>
-          <div className="modal-reciver_name">
+          <div className="modal-reciver-name">
             <select
             className="users-drop-down"
               required
@@ -147,7 +146,7 @@ function PayOrRequest() {
           </div>
 
           <div className="modal-note">
-          <input
+          <textarea
           className="note-for-pay"
               type="text"
               required
@@ -180,6 +179,7 @@ function PayOrRequest() {
         </form>
       </div>
     </div>
+    </>
 
   )
 }
