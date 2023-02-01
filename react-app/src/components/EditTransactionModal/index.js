@@ -11,19 +11,21 @@ import './edittransactions.css'
 
 function EditTransaction(currentTransactionId) {
   const sessionUser = useSelector(state => state.session.user);
+  // const arrTransactions = Object.values(thisTransaction)
+  const currentTransaction = currentTransactionId.currentTransactionId
+  const thisTransaction = useSelector(state => state.transactions.allTransactions[currentTransaction])
   const history = useHistory()
   const dispatch = useDispatch()
-  const [amount, setAmount] = useState('')
-  const [receiver_id, setReceiver_id] = useState('')
-  const [note, setNote] = useState('')
+  const [amount, setAmount] = useState(thisTransaction.amount)
+  const [receiver_id, setReceiver_id] = useState(thisTransaction.receiver_id)
+  const [note, setNote] = useState(thisTransaction.note)
   const [errors, setErrors] = useState([]);
   const {closeModal} = useModal();
   const [users, setUsers] = useState([])
 
+  console.log("HELLOOOOOO",thisTransaction)
 
-  const currentTransaction = currentTransactionId.currentTransactionId
-
-
+  console.log(currentTransaction)
   useEffect(() => {
     if (!users.length) {
       // return null
@@ -88,7 +90,7 @@ function EditTransaction(currentTransactionId) {
               required
               onChange={(e) => setAmount(e.target.value)}
               value={amount}
-              placeholder='Enter Amount'
+              // placeholder={thisTransaction.amount}
               name="amount"
               />
           </div>
@@ -116,7 +118,7 @@ function EditTransaction(currentTransactionId) {
               required
               onChange={(e) => setNote(e.target.value)}
               value={note}
-              placeholder='Note'
+              // placeholder={thisTransaction.note}
               name="note"
               />
           </div>

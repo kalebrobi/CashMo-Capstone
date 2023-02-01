@@ -6,6 +6,8 @@ import OpenModalButton from '../OpenModalButton'
 import LogoutButton from '../auth/LogoutButton';
 import PayOrRequest from '../PayOrRequestModal';
 import EditTransaction from '../EditTransactionModal';
+import { getAllPmtMethods } from '../../store/payment_method';
+
 import './homepage.css'
 import './iphoneimg.png'
 
@@ -33,6 +35,7 @@ const HomePage = ({loaded}) => {
       setUsers(responseData.users);
     }
     fetchData();
+    dispatch(getAllPmtMethods())
 
       if (sessionUser){
         dispatch(getAllTransactions(sessionUser.id))
