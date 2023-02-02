@@ -10,7 +10,7 @@ class Transaction(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   sender_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'),  nullable=False)
   receiver_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'),  nullable=False)
-  amount = db.Column(db.Integer, nullable=False)
+  amount = db.Column(db.Float, nullable=False)
   note = db.Column(db.String(280), nullable=False)
   isRequest = db.Column(db.Boolean, default=False)
   isPending = db.Column(db.Boolean, default=True)

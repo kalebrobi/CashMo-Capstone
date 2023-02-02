@@ -176,12 +176,13 @@ return (
       <div className="modal-amount-number">
         <input
         className="amount-input-pay"
-          type="text"
+          type="number"
           required
-          onChange={(e) => setAmount(e.target.value)}
           value={amount}
-          placeholder='$0'
+          onChange={(e) => setAmount(Number(e.target.value).toFixed(2))}
+          placeholder='$0.00'
           name="amount"
+
           />
       </div>
       <div className="modal-reciver-name">
