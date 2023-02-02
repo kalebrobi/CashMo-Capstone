@@ -27,6 +27,18 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use.')
 
 
+def validate_image_url(form, field):
+    allowed_extensions = ['.jpg', '.png','.jpeg','.webp', '.gif']
+    image_url = field.data
+    if not image_url.startswith('http://') and not image_url.startswith('https://'):
+        raise ValidationError('Image URL must start with either "http://" or "https://"')
+
+
+
+
+
+
+
 class SignUpForm(FlaskForm):
     first_name = StringField('first_name', validators=[DataRequired()])
     last_name = StringField('last_name', validators=[DataRequired()])
@@ -34,3 +46,18 @@ class SignUpForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(), user_exists, valid_email])
     password = StringField('password', validators=[DataRequired()])
     profile_photo = StringField('Profile Photo')
+    profile_photo = StringField('Profile Photo', validators=[validate_image_url])
+
+
+
+
+
+
+
+    # class SignUpForm(FlaskForm):
+    # first_name = StringField('first_name', validators=[DataRequired()])
+    # last_name = StringField('last_name', validators=[DataRequired()])
+    # username = StringField('username', validators=[DataRequired(), username_exists])
+    # email = StringField('email', validators=[DataRequired(), user_exists, valid_email])
+    # password = StringField('password', validators=[DataRequired()])
+    # profile_photo = StringField('Profile Photo')
