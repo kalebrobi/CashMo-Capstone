@@ -18,6 +18,8 @@ const LoadAllCards = () => {
 
 
 
+
+
   useEffect(() => {
     dispatch(getAllPmtMethods())
     // async function fetchData() {
@@ -34,7 +36,7 @@ const LoadAllCards = () => {
   const handleDeletion = async (payment_method_id) => {
     const response =  await dispatch(deleteACard(payment_method_id))
     if (response){
-      setDeleteMessage(response.message)
+      setDeleteMessage([response.message])
     }
   }
 

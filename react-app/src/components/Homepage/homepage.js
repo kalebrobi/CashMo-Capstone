@@ -223,7 +223,7 @@ const HomePage = ({loaded}) => {
               >Pay
               </button>
               <button
-              onClick={() => handleClick(eachTransaction.id)}
+              onClick={() => handleDeletion(eachTransaction.id)}
               className='edit-delete-transaction-button'
               >Reject
               </button>
