@@ -263,8 +263,13 @@ const HomePage = ({loaded}) => {
           </div>
          </div>
         </div>
-        <div className='splashPage-right'>
-        {/* <img src={imageHome} /> */}
+    <div className='splashPage-right'>
+      <div className='green-img-container'>
+        <img className='splash-img-green' src='https://images.ctfassets.net/gkyt4bl1j2fs/6dMOFkDr1hizWs0WolE9qI/b189b5fa7968e55a49e17647485454ec/Homepage_Bit1.svg'  />
+      {/* </div> */}
+      {/* <div className='iphone-img-container'> */}
+        <img className='splash-img-phone' src='https://images.ctfassets.net/gkyt4bl1j2fs/1lkW032LqzVC0G3hUHAXER/0698a44d0c6c360f99ee08025146891e/Homepage_Desktop_UI_Comp_01_Partial_A.png?w=1157&h=1387&q=50&fm=webp&bg=transparent' />
+      </div>
         </div>
       </div>
     )

@@ -57,7 +57,7 @@ function NavBar({loaded}){
         </div>
         <div>
           <NavLink className={'nav-sign-up-link'} to='/sign-up' exact={true} activeClassName='active'>
-            Get Cashmo
+            Join Cashmo!
           </NavLink>
         </div>
         </div>

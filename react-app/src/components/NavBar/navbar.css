@@ -66,8 +66,9 @@
 
 .nav-sign-up-link{
   text-decoration: none;
-  color: black;
-  border: 1px black solid;
+  color: rgb(41, 41, 41);
+  /* border: 1px #f8fcfe solid; */
+  box-shadow: 0px 1px 3px rgb(14, 13, 13);
   /* padding: 5px; */
   padding-left: 25px;
   padding-right: 25px;
@@ -77,15 +78,31 @@
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
-  transition: background-color 2s;
+  font-style: oblique;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  letter-spacing: -.01rem;
+  /* transition: background-color 1s; */
 }
 
 .nav-sign-up-link:hover{
-  background-color:rgba(146, 190, 242, 0.908);
+  box-shadow: 0px 2px 5px rgba(14, 13, 13, 0.4);
+  transform: translateY(-2px);
+  letter-spacing: -.01rem;
+  background-color:#008cff;
+  color: white;
 }
 
 
 .nav-log-in-link{
   text-decoration: none;
+  font-style: oblique;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  letter-spacing: -.01rem;
   color: black;
+  margin-right: 10px;
+}
+
+.nav-log-in-link:hover{
+  color: #008CFF;
+  transform: translateY(-2px);
 }
