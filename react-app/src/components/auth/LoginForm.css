@@ -22,7 +22,7 @@
   flex-direction: column;
   background-color: white;
   height: 63%;
-  width: 30%;
+  width: 40%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -106,7 +106,8 @@
 
 .login-button-container{
   display: flex;
-  width: 100%;
+  /* flex-direction: column; */
+  width: 90%;
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 5px;
@@ -142,6 +143,41 @@
   cursor: pointer;
   letter-spacing: -.01rem;
 }
+
+.login-form-button-demo{
+  text-decoration: none;
+  background-color: #008cff;
+  color: white;
+  border: 1px rgb(8, 8, 8, 0.2) solid;
+  box-shadow: 0px 1px 3px rgb(14, 13, 13);
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: background-color 1s;
+  font-family: "Scto Grotesk A","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-style: oblique;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  width: 70%;
+  height: 40px;
+}
+
+
+.login-form-button-demo:hover{
+  color: white;
+  box-shadow: 0px 2px 5px rgba(14, 13, 13, 0.4);
+  transform: translateY(-2px);
+  cursor: pointer;
+  letter-spacing: -.01rem;
+}
+
+
 
 .login-errors{
   color: red;
