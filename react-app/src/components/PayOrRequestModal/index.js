@@ -93,7 +93,7 @@ function PayOrRequest() {
 
   }
 
-
+const newList = users.filter(user => user.id !== sessionUser.id)
 return (
 <>
 {arrayOfPmtMethods.length === 0 ? (
@@ -131,7 +131,7 @@ return (
           name='receiver_id'
           >
           <option value="">Select a Receiver</option>
-          {users.map(user => (
+          {newList.map(user => (
             <option key={user.id} value={user.username}>
               {user.username}
             </option>
@@ -185,7 +185,7 @@ return (
           name='receiver_id'
           >
           <option value="">Select a Receiver</option>
-          {users.map(user => (
+          {newList.map(user => (
             <option key={user.id} value={user.username}>
               {user.username}
             </option>
@@ -231,10 +231,3 @@ return (
 }
 
 export default PayOrRequest
-
-
-
-
-
-
-
