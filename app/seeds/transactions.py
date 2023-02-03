@@ -8,7 +8,7 @@ def seed_transactions():
     amount=50,
     note = "for dinner",
     isRequest = False,
-    isPending = True
+    isPending = False
   )
 
   transaction2 = Transaction(
@@ -17,7 +17,7 @@ def seed_transactions():
     receiver_id=3,
     note= "its the first of the month...",
     isRequest = False,
-    isPending = True
+    isPending = False
   )
 
   transaction3 = Transaction(
@@ -26,7 +26,7 @@ def seed_transactions():
     receiver_id=1,
     note= "Starbucks",
     isRequest = False,
-    isPending = True
+    isPending = False
   )
 
 

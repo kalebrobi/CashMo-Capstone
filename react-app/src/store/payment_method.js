@@ -62,7 +62,6 @@ export const createCard = (newCard) => async (dispatch) => {
     return createdNewCard
   } else {
     const badData = await response.json();
-    console.log('BadDattaaa', badData.errors)
     return badData
   }
 }
@@ -85,14 +84,12 @@ const paymentMethodsReducer = (state = initialState, action) => {
     }
     case POST_PAYMENT_METHOD: {
       const newState = {...state, allPaymentMethods: {...state.allPaymentMethods}}
-      // newState = {...state}
       newState.allPaymentMethods[action.payment_method.id] = action.payment_method;
       return newState
     }
     case DELETE_PAYMENT_METHOD: {
       const newState = {...state}
       const newObj = {...state.allPaymentMethods}
-      console.log("TESTTTT",newObj)
       delete newObj[action.payment_method_id]
       newState.allPaymentMethods = newObj
       return newState
