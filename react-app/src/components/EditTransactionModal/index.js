@@ -9,26 +9,26 @@ import './edittransactions.css'
 
 
 
-function EditTransaction(currentTransactionId) {
+function EditTransaction(props) {
   const sessionUser = useSelector(state => state.session.user);
-  // const arrTransactions = Object.values(thisTransaction)
-  const currentTransaction = currentTransactionId.currentTransactionId
+  const currentTransaction = props.currentTransactionId
   const thisTransaction = useSelector(state => state.transactions.allTransactions[currentTransaction])
   const history = useHistory()
   const dispatch = useDispatch()
   const [amount, setAmount] = useState(thisTransaction.amount)
-  const [receiver_id, setReceiver_id] = useState(thisTransaction.receiver_id)
+  const [receiver_id, setReceiver_id] = useState(props.recUserName)
   const [note, setNote] = useState(thisTransaction.note)
   const [errors, setErrors] = useState([]);
   const {closeModal} = useModal();
   const [users, setUsers] = useState([])
 
-  console.log("HELLOOOOOO",thisTransaction)
 
-  console.log(currentTransaction)
+
+
+
   useEffect(() => {
     if (!users.length) {
-      // return null
+
 
 
     async function fetchData() {
@@ -50,7 +50,6 @@ function EditTransaction(currentTransactionId) {
     let payload = {
       amount,
       sender_id: sessionUser.id,
-      // 'receiver_id': Number(receiver_id),
       receiver_id: selectedUser ? selectedUser.id : '',
       note,
       isPending: true,
@@ -76,21 +75,18 @@ function EditTransaction(currentTransactionId) {
     <div className="title-add-transaction">Pay & Request users</div>
       <div className="formContainer">
         <form className="modal-form" method="post" onSubmit={handlePayment} >
-      <div className="pay-req-error">
-        {errors.map((error, idx) => (
-         <div
-          className="each-pay-req-error" key={idx}>{error}
-        </div>
+        <div className='login-errors'>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error[ind]}</div>
           ))}
-       </div>
+        </div>
           <div className="modal-amount-number">
             <input
               className="amount-input-pay"
-              type="text"
+              type="number"
               required
-              onChange={(e) => setAmount(e.target.value)}
               value={amount}
-              // placeholder={thisTransaction.amount}
+              onChange={(e) => setAmount(Number(e.target.value).toFixed(2))}
               name="amount"
               />
           </div>
@@ -102,7 +98,7 @@ function EditTransaction(currentTransactionId) {
               value={receiver_id}
               name='receiver_id'
               >
-              <option value="">Select a Receiver</option>
+              {/* <option value={receiver_id}>{props.recUserName}</option> */}
               {users.map(user => (
                 <option key={user.id} value={user.username}>
                   {user.username}
@@ -110,7 +106,6 @@ function EditTransaction(currentTransactionId) {
               ))}
             </select>
           </div>
-
           <div className="modal-note">
           <textarea
            className="note-for-pay"
@@ -118,7 +113,6 @@ function EditTransaction(currentTransactionId) {
               required
               onChange={(e) => setNote(e.target.value)}
               value={note}
-              // placeholder={thisTransaction.note}
               name="note"
               />
           </div>
@@ -139,88 +133,3 @@ function EditTransaction(currentTransactionId) {
 
 
 export default EditTransaction
-
-
-
-
-
-
-
-
-
-{/* <>
-
-<div className="pay-modal-container">
-<div className="title-add-transaction">Pay & Request users</div>
-  <div className="formContainer">
-    <form className="modal-form" method="post" onSubmit={handlePayment}>
-    <div className="pay-req-error">
-        {errors.map((error, idx) => (
-          <div
-          className="each-pay-req-error" key={idx}>{error}
-          </div>
-        ))}
-    </div>
-      <div className="modal-amount-number">
-        <input
-        className="amount-input-pay"
-          type="text"
-          required
-          onChange={(e) => setAmount(e.target.value)}
-          value={amount}
-          placeholder='$0'
-          name="amount"
-          />
-      </div>
-      <div className="modal-reciver-name">
-        <select
-        className="users-drop-down"
-          required
-          onChange={(e) => setReceiver_id(e.target.value)}
-          value={receiver_id}
-          name='receiver_id'
-          >
-          <option value="">Select a Receiver</option>
-          {users.map(user => (
-            <option key={user.id} value={user.username}>
-              {user.username}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="modal-note">
-      <textarea
-      className="note-for-pay"
-          type="text"
-          required
-          onChange={(e) => setNote(e.target.value)}
-          value={note}
-          placeholder='Note'
-          name="note"
-          />
-      </div>
-      <div className="modal-buttons">
-        <button
-        type="submit"
-        name="pay"
-        className="modal-pay-button"
-        // onClick={setClickedButton('pay')}
-        // value={clickedButton}
-        onClick={handlePayment}
-        >Pay
-        </button>
-        <button
-        type="submit"
-        name="request"
-        className="modal-req-button"
-        // onClick={setClickedButton('request')}
-        // value={clickedButton}
-        onClick={handlePayment}
-        >Request
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-</> */}

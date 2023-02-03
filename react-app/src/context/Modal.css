@@ -31,7 +31,7 @@
 #modal-content {
   position: absolute;
   /* background-color:white; */
-   background-color: transparent;
-  width: 400px;
+  background-color: transparent;
+  width: 430px;
   height: 500px;
 }

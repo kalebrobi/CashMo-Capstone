@@ -31,6 +31,6 @@ def cc_exists(form, field):
 
 class PaymentMethodForm(FlaskForm):
   user_id = IntegerField('User Id', validators=[DataRequired()])
-  cc_number = StringField('Credit Card Number', validators=[DataRequired(),cc_exists, cc_length,cc_number_validator])
-  sec_code = StringField('Security Code', validators=[DataRequired(), sec_code_length,sec_code_validator])
-  card_nickname = StringField('Card Nickname', validators=[DataRequired()])
+  cc_number = StringField('Credit Card Number', validators=[DataRequired(message='16 digit credit card number is required'),cc_exists, cc_length,cc_number_validator])
+  sec_code = StringField('Security Code', validators=[DataRequired(message='3 digit security code is required'), sec_code_length,sec_code_validator])
+  card_nickname = StringField('Card Nickname', validators=[DataRequired(message='Card nickname is required')])

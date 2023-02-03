@@ -34,7 +34,9 @@ def validate_image_url(form, field):
         raise ValidationError('Image URL must start with either "http://" or "https://"')
 
 
-
+def username_length(form, field):
+    if len(field.data) > 15:
+        raise ValidationError('Username cannot be longer than 15 characters.')
 
 
 
@@ -42,11 +44,11 @@ def validate_image_url(form, field):
 class SignUpForm(FlaskForm):
     first_name = StringField('first_name', validators=[DataRequired()])
     last_name = StringField('last_name', validators=[DataRequired()])
-    username = StringField('username', validators=[DataRequired(), username_exists])
+    username = StringField('username', validators=[DataRequired(), username_exists, username_length])
     email = StringField('email', validators=[DataRequired(), user_exists, valid_email])
     password = StringField('password', validators=[DataRequired()])
-    profile_photo = StringField('Profile Photo')
     profile_photo = StringField('Profile Photo', validators=[validate_image_url])
+    # profile_photo = StringField('Profile Photo')
 
 
 

@@ -21,8 +21,7 @@ function PayOrRequest() {
   const {closeModal} = useModal();
   const userId = sessionUser.id
   const [users, setUsers] = useState([])
-  // const [clickedButton, setClickedButton] = useState(null);
-  console.log("ALLLLL",arrayOfPmtMethods)
+
 
 
   useEffect(() => {
@@ -52,12 +51,10 @@ function PayOrRequest() {
     const selectedUser = users.find(user => user.username === receiver_id);
 
       if(e.target.name === 'pay'){
-        console.log("THIS SHOULD BE A PAY")
 
       let payload = {
         amount,
         sender_id: sessionUser.id,
-        // 'receiver_id': Number(receiver_id),
         receiver_id: selectedUser ? selectedUser.id : '',
         note,
         isPending: false,
@@ -75,11 +72,9 @@ function PayOrRequest() {
 
 
     } else if(e.target.name === 'request'){
-      console.log("THIS SHOULD BE A REQUEST")
       let payload = {
         amount,
         sender_id: sessionUser.id,
-        // 'receiver_id': Number(receiver_id),
         receiver_id: selectedUser ? selectedUser.id : '',
         note,
         isPending: true,
@@ -111,13 +106,11 @@ return (
 </div>
   <div className="formContainer">
     <form className="modal-form" method="post" onSubmit={handlePayment}>
-    <div className="pay-req-error">
-        {errors.map((error, idx) => (
-          <div
-          className="each-pay-req-error" key={idx}><div className="testing-errors">{error}</div>
-          </div>
-        ))}
-    </div>
+    <div className='login-errors'>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error[ind]}</div>
+          ))}
+        </div>
       <div className="modal-amount-number">
         <input
         className="amount-input-pay"
@@ -166,13 +159,11 @@ return (
 <div className="title-add-transaction">Pay & Request users</div>
   <div className="formContainer">
     <form className="modal-form" method="post" onSubmit={handlePayment}>
-    <div className="pay-req-error">
-        {errors.map((error, idx) => (
-          <div
-          className="each-pay-req-error" key={idx}><div className="testing-errors">{error}</div>
-          </div>
-        ))}
-    </div>
+    <div className='login-errors'>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error[ind]}</div>
+          ))}
+        </div>
       <div className="modal-amount-number">
         <input
         className="amount-input-pay"
@@ -218,8 +209,6 @@ return (
         type="submit"
         name="pay"
         className="modal-pay-button"
-        // onClick={setClickedButton('pay')}
-        // value={clickedButton}
         onClick={handlePayment}
         >Pay
         </button>
@@ -227,8 +216,6 @@ return (
         type="submit"
         name="request"
         className="modal-req-button"
-        // onClick={setClickedButton('request')}
-        // value={clickedButton}
         onClick={handlePayment}
         >Request
         </button>
@@ -251,87 +238,3 @@ export default PayOrRequest
 
 
 
-
-
-
-
-
-
-  // return (
-  //   <>
-  //   <div className="pay-modal-container">
-  //   <div className="title-add-transaction">Pay & Request users</div>
-  //     <div className="formContainer">
-  //       <form className="modal-form" method="post" onSubmit={handlePayment}>
-  //       <div className="pay-req-error">
-  //           {errors.map((error, idx) => (
-  //             <div
-  //             className="each-pay-req-error" key={idx}><div className="testing-errors">{error}</div>
-  //             </div>
-  //           ))}
-  //       </div>
-  //         <div className="modal-amount-number">
-  //           <input
-  //           className="amount-input-pay"
-  //             type="text"
-  //             required
-  //             onChange={(e) => setAmount(e.target.value)}
-  //             value={amount}
-  //             placeholder='$0'
-  //             name="amount"
-  //             />
-  //         </div>
-  //         <div className="modal-reciver-name">
-  //           <select
-  //           className="users-drop-down"
-  //             required
-  //             onChange={(e) => setReceiver_id(e.target.value)}
-  //             value={receiver_id}
-  //             name='receiver_id'
-  //             >
-  //             <option value="">Select a Receiver</option>
-  //             {users.map(user => (
-  //               <option key={user.id} value={user.username}>
-  //                 {user.username}
-  //               </option>
-  //             ))}
-  //           </select>
-  //         </div>
-
-  //         <div className="modal-note">
-  //         <textarea
-  //         className="note-for-pay"
-  //             type="text"
-  //             required
-  //             onChange={(e) => setNote(e.target.value)}
-  //             value={note}
-  //             placeholder='Note'
-  //             name="note"
-  //             />
-  //         </div>
-  //         <div className="modal-buttons">
-  //           <button
-  //           type="submit"
-  //           name="pay"
-  //           className="modal-pay-button"
-  //           // onClick={setClickedButton('pay')}
-  //           // value={clickedButton}
-  //           onClick={handlePayment}
-  //           >Pay
-  //           </button>
-  //           <button
-  //           type="submit"
-  //           name="request"
-  //           className="modal-req-button"
-  //           // onClick={setClickedButton('request')}
-  //           // value={clickedButton}
-  //           onClick={handlePayment}
-  //           >Request
-  //           </button>
-  //         </div>
-  //       </form>
-  //     </div>
-  //   </div>
-  //   </>
-
-  // )

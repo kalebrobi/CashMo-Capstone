@@ -56,7 +56,7 @@ const AddNewCardForm = () => {
       </div>
       <div className='user-info-and-profile-img'>
         <div>
-        <img className='user-img-left-nav' src={sessionUser.profile_photo} alt='nav-profile-photo' />
+        <img className='user-img-left-nav' src={sessionUser.profile_photo} onError={e => {e.target.src ='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}} alt='nav-profile-photo' />
         </div>
         <div className='user-details-left'>
           <p>Hi, {sessionUser.first_name}</p>
@@ -112,11 +112,11 @@ const AddNewCardForm = () => {
         <div className='title-add-card'>
             Add Card
         </div>
-          <ul>
-            {errors.map((error, idx) => (
-              <li key={idx}>{error}</li>
-            ))}
-          </ul>
+        <div className='login-errors'>
+          {errors.map((error, ind) => (
+            <div key={ind}>{error[ind]}</div>
+          ))}
+        </div>
         <div className='full-cc-number-container'>
           <input
           className='full-cc-number-input'
