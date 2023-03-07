@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from like import likes
 
 
 class User(db.Model, UserMixin):
@@ -21,7 +22,11 @@ class User(db.Model, UserMixin):
     Sender_id = db.relationship('Transaction', backref='send',lazy='dynamic',foreign_keys='Transaction.sender_id')
     Receiver_id = db.relationship('Transaction', backref='receiver',lazy='dynamic',foreign_keys='Transaction.receiver_id')
 
-
+    user_likes = db.relationship(
+        "Transaction",
+        secondary=likes,
+        back_populates='transaaction_likes'
+    )
 
 
 

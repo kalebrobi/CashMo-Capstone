@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from like import likes
 
 
 class Transaction(db.Model):
@@ -14,6 +15,12 @@ class Transaction(db.Model):
   note = db.Column(db.String(280), nullable=False)
   isRequest = db.Column(db.Boolean, default=False)
   isPending = db.Column(db.Boolean, default=True)
+
+  transactions_likes = db.relationship(
+  "User",
+  secondary=likes,
+  back_populates="user_likes"
+)
 
   # sender = db.relationship('User', foreign_keys=[sender_id], back_populates='transactions_sent')
   # reciever = db.relationship('User', foreign_keys=[receiver_id], back_populates='transactions_recieved')
