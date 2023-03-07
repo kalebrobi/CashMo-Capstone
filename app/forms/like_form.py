@@ -4,4 +4,4 @@ from wtforms import IntegerField
 
 class LikeForm(FlaskForm):
   users = IntegerField('Users')
-  transactions = IntegerField('Songs')
+  transactions = IntegerField('Transactions')
