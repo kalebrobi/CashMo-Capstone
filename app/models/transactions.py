@@ -16,7 +16,7 @@ class Transaction(db.Model):
   isRequest = db.Column(db.Boolean, default=False)
   isPending = db.Column(db.Boolean, default=True)
 
-  transactions_likes = db.relationship(
+  transaction_likes = db.relationship(
   "User",
   secondary=likes,
   back_populates="user_likes"

@@ -1,9 +1,9 @@
 from app.models import db, likes, environment, SCHEMA
 
 def seed_likes():
-    like_1 = likes.insert().values(users=1, transaction=2)
-    like_2 = likes.insert().values(users=2, transaction=3)
-    like_3 = likes.insert().values(users=3, transaction=1)
+    like_1 = likes.insert().values(users=1, transactions=2)
+    like_2 = likes.insert().values(users=2, transactions=3)
+    like_3 = likes.insert().values(users=3, transactions=1)
 
     db.session.execute(like_1)
     db.session.execute(like_2)

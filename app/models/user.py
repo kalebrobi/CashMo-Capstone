@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     user_likes = db.relationship(
         "Transaction",
         secondary=likes,
-        back_populates='transaaction_likes'
+        back_populates='transaction_likes'
     )
 
 
