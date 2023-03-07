@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from like import likes
+from .like import likes
 
 
 class Transaction(db.Model):
