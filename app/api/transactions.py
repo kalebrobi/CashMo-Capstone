@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Transaction, db, User
+from app.models import Transaction, db, User, likes
 from ..forms.transaction_form import TransactionForm
+from ..forms.like_form import LikeForm
 
 
 
@@ -108,3 +109,45 @@ def delete_pay(id):
 
 
   return {"message": 'successfully deleted'}
+
+
+# get all likes for a transaction by transaction-id
+
+@transaction_routes.route('/<int:id>/likes')
+def all_likes(id):
+  all_likes = db.session.execute(db.select(likes)).fetchall()
+
+  filtered = filter(lambda like: like[1] == id, all_likes)
+
+  # turns filtered data to a dict
+  dict_version = dict(filtered)
+
+  #gets the values from that dict, view object only tho
+  valuesI = dict_version.values()
+
+  # turns the view object to a list then sums the length(which is total amount of likes)
+  total_likes = len(list(valuesI))
+  return {'likes': total_likes}, 200
+
+
+@transaction_routes.route('/<int:id>/likes', methods=['POST'])
+def post_like(id):
+  form = LikeForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+
+    user_id = form.users.data
+    transaction_id = form.transactions.data
+
+    selected_transaction = Transaction.query.get(transaction_id)
+    selected_user = User.query.get(user_id)
+
+    if selected_user in selected_transaction.transaction_likes:
+      selected_transaction.transaction_likes.remove(selected_transaction)
+      db.session.commit()
+      return all_likes(id)
+
+    else:
+      selected_transaction.transaction_likes.append(selected_user)
+      db.session.commit()
+      return all_likes(id)

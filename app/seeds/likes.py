@@ -1,0 +1,20 @@
+from app.models import db, likes, environment, SCHEMA
+
+def seed_likes():
+    like_1 = likes.insert().values(users=1, transaction=2)
+    like_2 = likes.insert().values(users=2, transaction=3)
+    like_3 = likes.insert().values(users=3, transaction=1)
+
+    db.session.execute(like_1)
+    db.session.execute(like_2)
+    db.session.execute(like_3)
+    db.session.commit()
+
+
+def undo_likes():
+  if environment == "production":
+    db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE;")
+  else:
+    db.session.execute("DELETE FROM likes")
+
+  db.session.commit()
